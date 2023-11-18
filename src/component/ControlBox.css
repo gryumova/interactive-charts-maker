@@ -1,0 +1,26 @@
+.controlBox {
+    position: absolute;
+    display: inline-block; 
+    top: -55px;
+    left: 50%;
+}
+
+.showValue {
+    padding: 12px 25px;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif, serif;
+
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.showValue:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}

@@ -51,10 +51,9 @@ const makeRequest = (params, callback, url_=URLCandels, method_="GET") => {
 
     xml_.send()
 
-    console.log("Draw Parameters", getDrawParams(params))
     xml_.onload = function() {
         const data = JSON.parse(xml_.response).map((value) => getItemPrice(value));
-        callback(data, "first", getDrawParams(params));
+        callback(data, getDrawParams(params), params.place);
     };
     
     xml_.onerror = function() { 

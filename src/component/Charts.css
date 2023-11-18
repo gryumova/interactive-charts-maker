@@ -1,13 +1,12 @@
 #wrapper {
     display: grid;
-    width: 49%;
-    margin: 0;
-    overflow-x: scroll;
-    overflow-y: scroll;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 300px 300px 300px;
 }
 
-.chart {
-    width: 600px;
+/* .chart {
+    width: 700px;
     height: 400px;
     margin: 10px 10px 10px 10px;
-}
+} */

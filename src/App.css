@@ -1,33 +1,40 @@
-.container {
-    display: flex;
-    flex-direction: column;
+.tabs {
+    position: relative; /* Относительное позиционирование */
+    padding-top: 30px;
+    padding-left: 50px;
 }
 
-.editShowBox {
-    display: flex;
-    flex-direction: row;
+.tab, .tab-title {
+    display: inline-block; /* Выстраиваем по горизонтали */
 }
 
-.controlBox {
-    margin: auto;
+.tab input[type="radio"] { display: none; }
+
+.tab-title {
+    background: #4CAF50; /* Цвет фона */
+    padding: 5px 10px; /* Поля вокруг текста */
+    border: 1px solid #4CAF50; /* Параметры рамки */
+    border-bottom: none; /* Снизу линию убираем */
+    font-family: Georgia, 'Times New Roman', Times, serif, serif;
+    font-size: 15px;
 }
 
-.showValue {
-    margin: 10px auto 10px auto;
-    padding: 12px 25px;
-    background-color: white;
-    color: black;
-    border: 2px solid #4CAF50;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 14px;
-
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
+.tab-content {
+    position: absolute; /* Абсолютное позиционирование */
+    border: 1px solid #4CAF50; /* Параметры рамки */
+    padding: 10px; /* Поля вокруг текста */
+    left: 0; /* Размещаем у левого края */
+    width: calc(100% - 20px); /* Ширина содержимого */
+    display: none; /* Прячем вкладку */
 }
 
-.showValue:hover {
-    background-color: #4CAF50; /* Green */
-    color: white;
+.tab :checked + .tab-title {
+    position: relative; /* Относительное позиционирование */
+    background: #ffffff; /* Цвет фона */
+    top: 1px; /* Сдвигаем вниз */
+    z-index: 1; /* Отображаем поверх содержимого */
+}
+   
+.tab :checked ~ .tab-content {
+    display: block; /* Показываем активную вкладку */
 }

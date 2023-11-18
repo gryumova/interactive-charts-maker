@@ -8,27 +8,29 @@ const defaultColorOptionCandle = {
                                 wickDownColor: '#ef5350' 
                             }
 
-function createElementById(id) {
-    let parent = document.getElementById("wrapper");
-    let child = document.createElement("div"); // create new div
-    child.setAttribute("class", "chart")
-    child.setAttribute("id", id)
-
-    parent.appendChild(child);
+function clear(id) {
+    document.getElementById(id).innerHTML = '';
 }
 
-function drawChart(data, id='first', params=defaultColorOptionCandle, type="lines") {
-    const chartOptions = { layout: { 
+function getLineParameters(params) {
+    return {
+        color: params.color,
+        lineStyle: params.lineStyle,
+        lineWidth: params.lineWidth
+    }
+}
+
+function drawChart(data, params=defaultColorOptionCandle, id='chart11', type="lines") {
+    const chartOptions = {  layout: { 
                             textColor: 'black', 
                             background: { 
                                 type: 'solid', 
-                                color: 'white' 
-                        } } };
-
-    createElementById(id);
+                                color: 'white' } } };
+    
+    clear(id);
     const chart = createChart(document.getElementById(id), chartOptions);
     const candlestickSeries = type === "lines"? 
-                            chart.addLineSeries(params):
+                            chart.addLineSeries(getLineParameters(params)):
                             chart.addCandlestickSeries(params);
 
     candlestickSeries.setData(data);
