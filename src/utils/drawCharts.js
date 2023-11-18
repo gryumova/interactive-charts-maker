@@ -29,6 +29,14 @@ function drawChart(data, params=defaultColorOptionCandle, id='chart11', type="li
     
     clear(id);
     const chart = createChart(document.getElementById(id), chartOptions);
+
+    chart.timeScale().applyOptions({
+        barSpacing: params.barSpacing? params.barSpacing: 6,
+    });
+
+    chart.timeScale().applyOptions({
+        minBarSpacing: params.minBarSpacing? params.minBarSpacing: 0.5,
+    });
     const candlestickSeries = type === "lines"? 
                             chart.addLineSeries(getLineParameters(params)):
                             chart.addCandlestickSeries(params);

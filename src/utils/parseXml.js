@@ -19,6 +19,8 @@ const getPanelParams = (panels) => {
                     symbol:  element.chart[0].symbol[0],
                     color: element.chart[0].color[0],
                     place: "chart"+element.x[0]+element.y[0],
+                    barSpacing: element.bar_spacing[0],
+                    minBarSpacing: element.min_bar_spacing[0],
                     settings: element.chart[0].settings[0]
             }
         });

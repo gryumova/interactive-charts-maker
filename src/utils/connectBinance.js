@@ -27,17 +27,24 @@ function getDrawParams(params) {
     }
 }
 
+// function getTime(time) {
+//     return Date(time).years
+// }
+
 function getItemPrice(item) {
+    let data = new Date(item[6])
+    data = data.toLocaleString('sv').split(' ')[0]
+
     return {
         value: Number(item[1]),
-        time: Number(item[6])
+        time: data
     }
 }
 
 function getParamsKlines(params) {
     return {
         symbol: params.symbol,
-        interval: '1h',
+        interval: '1d',
         limit: 1500
     }
 }
