@@ -49,18 +49,21 @@ export default function App() {
             toast.error(err.message)
         }
     }
-
     return (
         <>
             <div className="tabs">
                 <div className="tab">
                     <input type="radio" id="edit" name="tab-group" defaultChecked/>
-                    <label htmlFor="edit" className="tab-title">Edit</label> 
+                    <label htmlFor="edit" className="tab-title first-title">Edit</label> 
                     <section className="tab-content">
                         <ControlBox handle={handleSave} text="Save"/>
                         <Editor
-                            height='90vh'
+                            width='100%'
+                            height='95vh'
                             defaultLanguage='xml'
+                            options={{
+                                fontSize:"14px"
+                            }}
                             value={content}
                             onChange={(value) => setContent(value)}
                             onMount={handleEditorDidMount}
@@ -69,7 +72,7 @@ export default function App() {
                 </div> 
                 <div className="tab">
                     <input type="radio" id="preview" name="tab-group"/>
-                    <label htmlFor="preview" className="tab-title">Preview</label> 
+                    <label htmlFor="preview" className="tab-title second-title">Preview</label> 
                     <section className="tab-content">
                         <Charts handleShow={handleShow}/>
                     </section>

@@ -1,6 +1,6 @@
 .tabs {
     position: relative; /* Относительное позиционирование */
-    padding-top: 30px;
+    padding-top: 5px;
     padding-left: 50px;
 }
 
@@ -11,17 +11,28 @@
 .tab input[type="radio"] { display: none; }
 
 .tab-title {
-    background: #4CAF50; /* Цвет фона */
-    padding: 5px 10px; /* Поля вокруг текста */
-    border: 1px solid #4CAF50; /* Параметры рамки */
+    background: #f5f5f5; /* Цвет фона */
+    padding: 15px 20px; /* Поля вокруг текста */
+    border: 0.7px solid #63648c; /* Параметры рамки */
     border-bottom: none; /* Снизу линию убираем */
+    color: #63648c;
     font-family: Georgia, 'Times New Roman', Times, serif, serif;
-    font-size: 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.first-title {
+    border-top-left-radius: 4px;
+}
+
+.second-title {
+    border-top-right-radius: 4px;
 }
 
 .tab-content {
+    background-color: white;
     position: absolute; /* Абсолютное позиционирование */
-    border: 1px solid #4CAF50; /* Параметры рамки */
+    border-top: 0.7px solid #63648c; /* Параметры рамки */
     padding: 10px; /* Поля вокруг текста */
     left: 0; /* Размещаем у левого края */
     width: calc(100% - 20px); /* Ширина содержимого */
@@ -30,9 +41,10 @@
 
 .tab :checked + .tab-title {
     position: relative; /* Относительное позиционирование */
-    background: #ffffff; /* Цвет фона */
-    top: 1px; /* Сдвигаем вниз */
-    z-index: 1; /* Отображаем поверх содержимого */
+    background: white; /* Цвет фона */
+    color: #63648c;
+    top: 2px; 
+    z-index: 1;
 }
    
 .tab :checked ~ .tab-content {
