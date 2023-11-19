@@ -6,7 +6,6 @@ The user can set chart settings in the edit tab. The editor is based on the Mona
 
 ```
 <layout> 
-  <name>engine_app/test.dsh</name>
   <panel>
       <x>1</x>
       <y>1</y>
