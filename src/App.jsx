@@ -12,7 +12,7 @@ import makeRequest from "./utils/connectBinance";
 import drawChart from "./utils/drawCharts";
 
 export default function App() {
-    const [content, setContent] = useState('<xml></xml>');
+    const [content, setContent] = useState('<layout></layout>');
     const [panels, setPanels] = useState([]);
     const editorRef = useRef(null);
 
@@ -21,10 +21,11 @@ export default function App() {
     }
 
     const handleShow = () => {
-        if (panels.length===0){
+        if (panels.length === 0){
             toast.warning("No charts.");
             return
         }
+
         try {
             panels.forEach(element => {
                 makeRequest(element, drawChart);
@@ -38,6 +39,11 @@ export default function App() {
     const handleSave = (value) => {
         try {
             setPanels(parsePanel(editorRef.current.getValue()));
+            if (panels.length > 9){
+                toast.warning("Too much charts. There are more than 9 of them!");
+                return
+            }
+            
             toast.success("XML saved!");
         } catch(err) {
             toast.error(err.message)
