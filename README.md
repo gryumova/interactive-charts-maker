@@ -30,7 +30,7 @@ The user can set chart settings in the edit tab. The editor is based on the Mona
 
 The preview tab displays the graphs constructed using the Lightweight Charts library.
 
-[]!(/readme/screen.gif)
+![](/readme/screen.gif)
 
 ## Run code
 Install Monaco Editor and Lightweight Charts:
