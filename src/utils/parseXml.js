@@ -15,6 +15,11 @@ const getPanelParams = (panels) => {
 
     try {
         const options = panels.map(element => {
+            let x = element.x[0];
+            let y = element.y[0];
+            if (Number(x) > 3 || Number(x) < 1 || Number(y) > 3 || Number(y) < 1) {
+                throw Error("X and Y must be from 1 to 9!");
+            }
             return {  
                     symbol:  element.chart[0].symbol[0],
                     color: element.chart[0].color[0],
@@ -25,8 +30,8 @@ const getPanelParams = (panels) => {
             }
         });
         return options;
-    } catch {
-        throw Error("Incorrect panel settings!")
+    } catch(err) {
+        throw err;
     }
 
 }
