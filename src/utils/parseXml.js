@@ -21,6 +21,7 @@ const getPanelParams = (panels) => {
                 throw Error("X and Y must be from 1 to 9!");
             }
             return {  
+                    type: element.chart[0].type[0],
                     symbol:  element.chart[0].symbol[0],
                     color: element.chart[0].color[0],
                     place: "chart"+element.x[0]+element.y[0],

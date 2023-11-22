@@ -27,10 +27,6 @@ function getDrawParams(params) {
     }
 }
 
-// function getTime(time) {
-//     return Date(time).years
-// }
-
 function getItemPrice(item) {
     let data = new Date(item[6])
     data = data.toLocaleString('sv').split(' ')[0]
@@ -49,6 +45,14 @@ function getParamsKlines(params) {
     }
 }
 
+
+function getDataForDraw(value, type) {
+    console.log(value, type)
+    if (type==="addLineSeries") return getItemPrice(value)
+    else if (type==="addCandlestickSeries") return getItemKline(value)
+    else return new Error("Type charts error!")
+}
+
 const URLCandels = "https://api.binance.com/api/v3/klines";
 
 const makeRequest = (params, callback, url_=URLCandels, method_="GET") => {
@@ -59,8 +63,8 @@ const makeRequest = (params, callback, url_=URLCandels, method_="GET") => {
     xml_.send()
 
     xml_.onload = function() {
-        const data = JSON.parse(xml_.response).map((value) => getItemPrice(value));
-        callback(data, getDrawParams(params), params.place);
+        const data = JSON.parse(xml_.response).map((value) => getDataForDraw(value, params.type));
+        callback(data, getDrawParams(params), params.place, params.type);
     };
     
     xml_.onerror = function() { 

@@ -20,7 +20,7 @@ function getLineParameters(params) {
     }
 }
 
-function drawChart(data, params=defaultColorOptionCandle, id='chart11', type="lines") {
+function drawChart(data, params=defaultColorOptionCandle, id='chart11', type="addLineSeries") {
     const chartOptions = {  layout: { 
                             textColor: 'black', 
                             background: { 
@@ -34,7 +34,7 @@ function drawChart(data, params=defaultColorOptionCandle, id='chart11', type="li
         barSpacing: params.barSpacing? params.barSpacing: 6,
     });
 
-    const candlestickSeries = type === "lines"? 
+    const candlestickSeries = type === "addLineSeries"? 
                             chart.addLineSeries(getLineParameters(params)):
                             chart.addCandlestickSeries(params);
 
