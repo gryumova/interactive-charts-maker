@@ -30,16 +30,27 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@main
-      with:
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          ARGS: "-rlgoDzvc -i"
-          SOURCE: "dist/"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }} / $${{ secrets.BRANCH_NAME }}
-          EXCLUDE: "/dist/, /node_modules/"
+    # - name: Deploy to Server
+    #   uses: easingthemes/ssh-deploy@main
+    #   with:
+    #       SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+    #       ARGS: "-rlgoDzvc -i"
+    #       SOURCE: "dist/"
+    #       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+    #       REMOTE_USER: ${{ secrets.REMOTE_USER }}
+    #       TARGET: ${{ secrets.REMOTE_TARGET }} / $${{ secrets.BRANCH_NAME }}
+    #       EXCLUDE: "/dist/, /node_modules/"
+    
+    - name: Add ssh key
+        run: |
+          mkdir ~/.ssh
+          echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/key
+          chmod 600 ~/.ssh/key
+      - name: Deploy project
+        env:
+          options: ssh -i ~/.ssh/key -o StrictHostKeyChecking=no
+        run: |
+          rsync -e "$options" --archive --delete ./dist/ ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
           
 
 
