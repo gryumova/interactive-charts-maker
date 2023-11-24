@@ -19,5 +19,5 @@ jobs:
       - run: npm ci
       - run: npm run build
       # Deploy
-      - run: cd build && rsync -e "ssh -p 20022 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . 4547692f1451.hosting.myjino.ru:/home/users/j/j19904748/domains/4547692f1451.hosting.myjino.ru
+      - run: cd build && rsync -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . 4547692f1451.hosting.myjino.ru:/home/users/j/j19904748/domains/4547692f1451.hosting.myjino.ru
 
