@@ -2,9 +2,9 @@ services:
   react-app:
     build:
       context: .
-      dockerfile: react.dockerfile
+      dockerfile: Dockerfile
     image: simple-react-app:latest
-    container_name: rect-app
+    container_name: react-app
     volumes:
       - type: bind
         source: .
