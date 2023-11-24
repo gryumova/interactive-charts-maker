@@ -35,10 +35,10 @@ jobs:
       with:
           SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i"
-          SOURCE: "dist/"
+          SOURCE: "build/"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }} }}
-          EXCLUDE: "/dist/, /node_modules/"
+          EXCLUDE: "node_modules/"
     
 
