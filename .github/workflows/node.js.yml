@@ -7,17 +7,26 @@ on:
 
 jobs:
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      # Setup key
-      - run: set -eu
-      - run: mkdir "$HOME/.ssh"
-      - run: echo "${{ secrets.PRIVATE_KEY }}" > "$HOME/.ssh/key"
-      - run: chmod 600 "$HOME/.ssh/key"
-      # Build
-      - run: npm ci
-      - run: npm run build
-      # Deploy
-      - run: cd build && rsync -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . 4547692f1451.hosting.myjino.ru:/home/users/j/j19904748/domains/4547692f1451.hosting.myjino.ru
+      - name: Get latest code
+        uses: actions/checkout@v3
 
+      - name: Use Node.js 18
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+        
+      - name: Buils project
+        run: |
+          npm install
+          npm run build
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with: 
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./build/
