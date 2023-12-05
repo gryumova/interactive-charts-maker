@@ -2,10 +2,11 @@ import React from "react"
 import ControlBox from "./ControlBox";
 import "./Charts.css"
 
-function Charts({handleShow}) {
+const Charts = ({handle}) => {
+
     return (
         <div id="wrapper">
-            <ControlBox handle={handleShow} text="Show"/>
+            <ControlBox handle={handle} text="Show"/>
             <div className="chart" id="chart11"></div>
             <div className="chart" id="chart12"></div>
             <div className="chart" id="chart13"></div>

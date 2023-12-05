@@ -1,54 +1,53 @@
-import Charts from "./component/Charts"
-import ControlBox from "./component/ControlBox";
+import Charts from "./components/Charts"
+import ControlBox from "./components/ControlBox";
 import Editor from '@monaco-editor/react';
 import "./App.css"
 
 import { toast, ToastContainer } from 'react-toastify'
 import { useRef, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
+import { parsePanel } from "./utils/parseXML";
+import { makeRequest } from "./http/binanceApi";
+import drawChart from "./utils/drawChart";
 
-import parsePanel from "./utils/parseXml";
-import makeRequest from "./utils/connectBinance";
-import drawChart from "./utils/drawCharts";
-
-export default function App() {
+const App = () => {
     const [content, setContent] = useState('<layout></layout>');
-    const [panels, setPanels] = useState([]);
+    const [options, setOptions] = useState([])
     const editorRef = useRef(null);
 
     const handleEditorDidMount = (editor, monaco) => {
         editorRef.current = editor;
     }
 
-    const handleShow = () => {
-        if (panels.length === 0){
-            toast.warning("No charts.");
-            return
-        }
-
+    const handleSubmit = () => {
         try {
-            panels.forEach(element => {
-                makeRequest(element, drawChart);
-            });
-            toast.success("Charts created!");
-        } catch(err) {
-            toast.error(err.message)
-        }
-    }
+            const opt = parsePanel(editorRef.current.getValue())
 
-    const handleSave = (value) => {
-        try {
-            setPanels(parsePanel(editorRef.current.getValue()));
-            if (panels.length > 9){
+            if (!opt) {
+                toast.warning("No charts");
+                return
+            }
+
+            if (opt.length > 9){
                 toast.warning("Too much charts. There are more than 9 of them!");
                 return
             }
-            
-            toast.success("XML saved!");
+
+            setOptions(opt)
+            toast.success("XML saved!")
         } catch(err) {
             toast.error(err.message)
         }
     }
+
+
+    const handleShow = () => {
+        options.forEach((option) => {
+            makeRequest(option, drawChart)
+        })
+
+    }
+
     return (
         <>
             <div className="tabs">
@@ -56,7 +55,7 @@ export default function App() {
                     <input type="radio" id="edit" name="tab-group" defaultChecked/>
                     <label htmlFor="edit" className="tab-title first-title">Edit</label> 
                     <section className="tab-content">
-                        <ControlBox handle={handleSave} text="Save"/>
+                        <ControlBox handle={handleSubmit} text="Save"/>
                         <Editor
                             width='100%'
                             height='95vh'
@@ -74,7 +73,7 @@ export default function App() {
                     <input type="radio" id="preview" name="tab-group"/>
                     <label htmlFor="preview" className="tab-title second-title">Preview</label> 
                     <section className="tab-content">
-                        <Charts handleShow={handleShow}/>
+                        <Charts handle={handleShow}/>
                     </section>
                 </div>
             </div>
@@ -93,3 +92,5 @@ export default function App() {
         </>
     )
 }
+
+export default App;
