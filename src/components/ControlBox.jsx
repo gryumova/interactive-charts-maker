@@ -4,7 +4,7 @@ import "./ControlBox.css"
 function ControlBox({handle, text}) {
     return (
         <div className='controlBox'>
-            <button className="showValue" onClick={handle}>{text}</button>
+            <button onClick={handle} className="showValue">{text}</button>
         </div>
     )
 }

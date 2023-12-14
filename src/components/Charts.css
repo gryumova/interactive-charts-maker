@@ -1,0 +1,20 @@
+#wrapper {
+    width: 100%;
+    background-color: rgb(228, 229, 232);
+    margin: 0;
+}
+
+.chart {
+    padding: 2px;
+    margin: 3px;
+}
+
+.layout {
+    background-color: rgb(228, 229, 232);
+}
+
+.className {
+    margin: 0;
+    padding: 0;
+    display: block;
+}

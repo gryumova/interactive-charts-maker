@@ -8,33 +8,67 @@ const parseStringSync = (str) => {
     }
 }
 
+const getBinanceParams = (panel) => {
+    return {
+        symbol: panel.chart[0].symbol[0],
+        interval: '1d',
+        limit: 1500
+    }
+}
+
+const getPlaceParams = (panel) => {
+    return {
+        x: Number(panel.x[0]),
+        y: Number(panel.y[0])
+    }
+}
+
+const getBarParams = (panel) => {
+    return {
+        barSpacing: Number(panel.bar_spacing[0]),
+        minBarSpacing: Number(panel.min_bar_spacing[0]),
+    }
+}
+
+const getTypeParams = (panel) => {
+    return {
+        type: panel.chart[0].type[0],
+    }
+}
+
+const getChartParams = (panel) => {
+    let settings = panel.chart[0].settings[0]
+
+    return {
+        color: panel.chart[0].color[0],
+        lineStyle: settings.lineStyle? Number(settings.lineStyle[0]): 0,
+        visible: settings.visible? settings.visible[0]: true,
+        lineWidth: settings.lineWidth? Number(settings.lineWidth[0]): 3,
+        priceScaleId: settings.priceScaleId? settings.priceScaleId[0]: 'left',
+        precision: settings.precision? Number(settings.precision[0]): 4
+    }
+}
+
 const getPanelParams = (panels) => {
     if (!panels) {
-        throw Error("Panel not found!")
+        return null
     }
 
     try {
-        const options = panels.map(element => {
-            let x = element.x[0];
-            let y = element.y[0];
-            if (Number(x) > 3 || Number(x) < 1 || Number(y) > 3 || Number(y) < 1) {
-                throw Error("X and Y must be from 1 to 9!");
+        const options = panels.map(panel => {
+            return {
+                PlaceParams: getPlaceParams(panel),
+                BarParams: getBarParams(panel),
+                TypeParams: getTypeParams(panel),
+                BinanceParams: getBinanceParams(panel),
+                ChartParams: getChartParams(panel)
             }
-            return {  
-                    type: element.chart[0].type[0],
-                    symbol:  element.chart[0].symbol[0],
-                    color: element.chart[0].color[0],
-                    place: "chart"+element.x[0]+element.y[0],
-                    barSpacing: element.bar_spacing[0],
-                    minBarSpacing: element.min_bar_spacing[0],
-                    settings: element.chart[0].settings[0]
-            }
-        });
+        })
+
         return options;
     } catch(err) {
-        throw err;
+        throw Error(err.message)
     }
-
 }
 
 const parsePanel = (xml) => {
@@ -43,6 +77,6 @@ const parsePanel = (xml) => {
     else throw Error("Missing layout tag!")
 }
 
-
-
-export default parsePanel;
+export {
+    parsePanel
+}

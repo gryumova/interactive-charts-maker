@@ -1,54 +1,70 @@
-import Charts from "./component/Charts"
-import ControlBox from "./component/ControlBox";
-import Editor from '@monaco-editor/react';
-import "./App.css"
-
 import { toast, ToastContainer } from 'react-toastify'
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
+import Editor, { loader } from '@monaco-editor/react';
 
-import parsePanel from "./utils/parseXml";
-import makeRequest from "./utils/connectBinance";
-import drawChart from "./utils/drawCharts";
+import "./App.css"
+import ControlBox from "./components/ControlBox";
+import Charts from './components/Charts';
+import { parsePanel } from './utils/parseXML';
+import { clearAll, getLayout, getLayoutWithBorder } from './utils/utils';
+import { makeRequest } from './http/binanceApi';
+import { drawChart } from './utils/draw';
 
-export default function App() {
+const App = () => {
     const [content, setContent] = useState('<layout></layout>');
-    const [panels, setPanels] = useState([]);
     const editorRef = useRef(null);
+    const [options, setOptions] = useState([]);
+    const [show, setShow] = useState(false);
+
+    const layout = useMemo(() => {
+        return getLayoutWithBorder(options);
+    }, [show])
+
+    loader.init().then((monaco) => {
+        monaco.editor.defineTheme('myTheme', {
+            base: 'vs',
+            inherit: true,
+            rules: [],
+            colors: {
+                'editor.background': '#E4E5E8',
+            },
+        });
+    });
 
     const handleEditorDidMount = (editor, monaco) => {
         editorRef.current = editor;
     }
 
-    const handleShow = () => {
-        if (panels.length === 0){
-            toast.warning("No charts.");
-            return
-        }
-
+    const handleSubmit = () => {
         try {
-            panels.forEach(element => {
-                makeRequest(element, drawChart);
-            });
-            toast.success("Charts created!");
-        } catch(err) {
-            toast.error(err.message)
-        }
-    }
+            const opt = parsePanel(editorRef.current.getValue());
 
-    const handleSave = (value) => {
-        try {
-            setPanels(parsePanel(editorRef.current.getValue()));
-            if (panels.length > 9){
+            if (!opt) {
+                toast.warning("No charts");
+                return
+            }
+
+            if (opt.length > 9){
                 toast.warning("Too much charts. There are more than 9 of them!");
                 return
             }
-            
-            toast.success("XML saved!");
+
+            setOptions(opt)
+            toast.success("XML saved!")
         } catch(err) {
-            toast.error(err.message)
+            toast.error(err.message);
         }
     }
+
+    const handleShow = () => {
+        clearAll(layout);
+        setShow(!show);
+        options.forEach((option) => {
+            makeRequest(option, drawChart)
+        })
+    }
+    
     return (
         <>
             <div className="tabs">
@@ -56,8 +72,9 @@ export default function App() {
                     <input type="radio" id="edit" name="tab-group" defaultChecked/>
                     <label htmlFor="edit" className="tab-title first-title">Edit</label> 
                     <section className="tab-content">
-                        <ControlBox handle={handleSave} text="Save"/>
+                        <ControlBox handle={handleSubmit} text="Save"/>
                         <Editor
+                            theme='myTheme'
                             width='100%'
                             height='95vh'
                             defaultLanguage='xml'
@@ -73,8 +90,9 @@ export default function App() {
                 <div className="tab">
                     <input type="radio" id="preview" name="tab-group"/>
                     <label htmlFor="preview" className="tab-title second-title">Preview</label> 
-                    <section className="tab-content">
-                        <Charts handleShow={handleShow}/>
+                    <section className="tab-content chart-content">
+                        <ControlBox handle={handleShow} text="Show"/>
+                        <Charts layout={layout}/>
                     </section>
                 </div>
             </div>
@@ -93,3 +111,5 @@ export default function App() {
         </>
     )
 }
+
+export default App;
