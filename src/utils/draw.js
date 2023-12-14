@@ -1,4 +1,5 @@
 import { createChart } from 'lightweight-charts';
+import { clear } from './utils';
 
 const defaultColorOptionCandle = { 
                                 upColor: '#26a69a', 
@@ -7,10 +8,6 @@ const defaultColorOptionCandle = {
                                 wickUpColor: '#26a69a', 
                                 wickDownColor: '#ef5350' 
                             }
-
-function clear(id) {
-    document.getElementById(id).innerHTML = '';
-}                           
 
 function getLineParameters(params) {
     return {
@@ -29,7 +26,7 @@ function drawChart(data, params) {
                                 color: 'white' } } }
 
     let place = "chart" + params.PlaceParams.x + params.PlaceParams.y
-    clear(place);
+    // clear(place);
     const chart = createChart(document.getElementById(place), chartOptions);
 
     chart.timeScale().applyOptions({
@@ -47,4 +44,4 @@ function drawChart(data, params) {
     chart.timeScale().fitContent();
 }
 
-export default drawChart;
+export { drawChart };

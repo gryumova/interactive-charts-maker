@@ -11,7 +11,7 @@
 .tab input[type="radio"] { display: none; }
 
 .tab-title {
-    background: #f5f5f5; /* Цвет фона */
+    background: #e8e5e5; /* Цвет фона */
     padding: 15px 20px; /* Поля вокруг текста */
     border: 0.7px solid #63648c; /* Параметры рамки */
     border-bottom: none; /* Снизу линию убираем */
@@ -30,18 +30,19 @@
 }
 
 .tab-content {
-    background-color: white;
+    background-color: rgb(228, 229, 232);
     position: absolute; /* Абсолютное позиционирование */
     border-top: 0.7px solid #63648c; /* Параметры рамки */
     padding: 10px; /* Поля вокруг текста */
     left: 0; /* Размещаем у левого края */
-    width: calc(100% - 20px); /* Ширина содержимого */
+    width: 100%; /* Ширина содержимого */
+    min-height: 805px;
     display: none; /* Прячем вкладку */
 }
 
 .tab :checked + .tab-title {
     position: relative; /* Относительное позиционирование */
-    background: white; /* Цвет фона */
+    background: rgb(228, 229, 232); /* Цвет фона */
     color: #63648c;
     top: 2px; 
     z-index: 1;
@@ -49,4 +50,9 @@
    
 .tab :checked ~ .tab-content {
     display: block; /* Показываем активную вкладку */
+}
+
+.chart-content {
+    margin: 0;
+    padding: 0px;
 }

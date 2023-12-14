@@ -1,21 +1,16 @@
 import React from "react"
-import ControlBox from "./ControlBox";
 import "./Charts.css"
+import BasicLayout from "./BasicLayout";
+import Example from "./Example";
+import ChartsLayout from "./ExampleChart";
 
-const Charts = ({handle}) => {
+const Charts = ({layout}) => {
 
     return (
         <div id="wrapper">
-            <ControlBox handle={handle} text="Show"/>
-            <div className="chart" id="chart11"></div>
-            <div className="chart" id="chart12"></div>
-            <div className="chart" id="chart13"></div>
-            <div className="chart" id="chart21"></div>
-            <div className="chart" id="chart22"></div>
-            <div className="chart" id="chart23"></div>
-            <div className="chart" id="chart31"></div>
-            <div className="chart" id="chart32"></div>
-            <div className="chart" id="chart33"></div>
+            {/* <BasicLayout layout={layout}/> */}
+            {/* <Example/> */}
+            <ChartsLayout layout={layout}/>
         </div>
     )
 }

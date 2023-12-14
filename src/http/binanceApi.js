@@ -1,5 +1,4 @@
 import { getDataForDraw } from "../utils/parseJSON";
-import { $host } from "./index";
 
 const url_ = "https://api.binance.com/api/v3/klines"
 
@@ -9,11 +8,6 @@ function getUrl(url, params) {
         url_.searchParams.set(i[0], i[1]);
 
     return url_.href
-}
-
-export const getData = async (params_) => {
-    let res = await $host.get('api/v3/klines', {params: params_})
-    return res.data
 }
 
 export const makeRequest = (params, callback) => {

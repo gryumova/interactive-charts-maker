@@ -8,7 +8,7 @@
 .showValue {
     padding: 5px 20px;
     background-color: #0456f3;
-    color: white;
+    color: #eeeded;
     border: 2px solid #0456f3;
     border-radius: 5%;
     text-align: center;
@@ -24,5 +24,5 @@
 .showValue:hover {
     background-color: #003db6; /* Green */
     border: 2px solid #003db6;
-    color: white;
+    color: #eeeded;
 }
