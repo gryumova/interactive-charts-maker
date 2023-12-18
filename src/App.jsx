@@ -1,19 +1,20 @@
 import { toast, ToastContainer } from 'react-toastify'
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import Editor, { loader } from '@monaco-editor/react';
 
 import "./App.css"
 import Charts from './components/Charts';
-import { parsePanel } from './utils/parseXML';
-import { clearAll, getLayoutWithBorder } from './utils/utils';
-import { makeRequest } from './http/binanceApi';
-import { drawChart } from './utils/draw';
+import { parsePanel } from './utils/parseXML.js';
+import { clearAll, getLayoutWithBorder } from './utils/utils.js';
+import { makeRequest } from './http/binanceApi.js';
+import { drawChart } from './utils/draw.js';
 import ControlBox from './components/ControlBox';
 
 const App = () => {
     const [content, setContent] = useState('<layout></layout>');
     const [options, setOptions] = useState([]);
+    const [layout, setLayout] = useState([]);
     const editorRef = useRef(null);
     const [save, setSave] = useState(true);
 
@@ -28,10 +29,11 @@ const App = () => {
         });
     });
 
-    const layout = useMemo(() => {
-        if (!options) return [];
-        return getLayoutWithBorder(options);
-    }, [options])
+    // const layout = useMemo(() => {
+    //     if (!options) return [];
+
+    //     return getLayoutWithBorder(options);
+    // }, [options])
 
     useEffect(() => {
         document.addEventListener('keydown', function(event) {
@@ -52,6 +54,7 @@ const App = () => {
             const opt = parsePanel(editorRef.current.getValue());
 
             if (!opt) {
+                setOptions([]);
                 return 
             }
 
@@ -64,14 +67,16 @@ const App = () => {
     }
 
     const handleShow = () => {
-        if (layout.length === 0) {
-            toast.warning("No charts to draw!")
+        clearAll(layout); 
+
+        if (options.length === 0) {
+            toast.warning("No charts to draw!");
+            return;
         }
 
-        clearAll(layout);
+        setLayout(getLayoutWithBorder(options));
 
         options.forEach((option) => {
-            console.log(option, "draw")
             makeRequest(option, drawChart);
         })
     }
