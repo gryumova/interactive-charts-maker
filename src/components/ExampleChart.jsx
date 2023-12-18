@@ -6,7 +6,6 @@ export default class ChartsLayout extends Component {
   render() {
     var layout = { lg: this.props.layout };
     
-    console.log(layout);
     return (
       <div>
         <ResponsiveGridLayout

@@ -45,7 +45,6 @@ export const getLayoutWithBorder = (params) => {
     if (params.length === 0) return [];
 
     let count = getChartRowCount(params);
-    console.log(count);
 
     return params.map((panel) => {
         let x = panel.PlaceParams.x;

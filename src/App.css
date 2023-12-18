@@ -1,58 +1,84 @@
 .tabs {
-    position: relative; /* Относительное позиционирование */
+    position: relative; 
     padding-top: 5px;
-    padding-left: 50px;
+    padding-left: 15px;
+    margin: 20px 20px 0px 20px;
+    border: 1px solid #d7d8da;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #f7f8fa;
 }
 
 .tab, .tab-title {
-    display: inline-block; /* Выстраиваем по горизонтали */
+    display: inline-block; 
 }
 
 .tab input[type="radio"] { display: none; }
 
 .tab-title {
-    background: #e8e5e5; /* Цвет фона */
-    padding: 15px 20px; /* Поля вокруг текста */
-    border: 0.7px solid #63648c; /* Параметры рамки */
-    border-bottom: none; /* Снизу линию убираем */
-    color: #63648c;
+    background: #d7d8da; 
+    cursor: pointer;
+    padding-top: 5px; 
+    padding-bottom: 5px;
+    margin: 5px 0px 5px 0px;
+    width: 100%;
+    border-radius: 6px;
+    color: #ffffff;
     font-family: Georgia, 'Times New Roman', Times, serif, serif;
     font-size: 16px;
-    cursor: pointer;
+    font-weight: 400;
 }
 
-.first-title {
-    border-top-left-radius: 4px;
-}
-
-.second-title {
-    border-top-right-radius: 4px;
-}
 
 .tab-content {
-    background-color: rgb(228, 229, 232);
-    position: absolute; /* Абсолютное позиционирование */
-    border-top: 0.7px solid #63648c; /* Параметры рамки */
-    padding: 10px; /* Поля вокруг текста */
-    left: 0; /* Размещаем у левого края */
-    width: 100%; /* Ширина содержимого */
-    min-height: 805px;
-    display: none; /* Прячем вкладку */
+    background-color: #ffffff;
+    position: absolute; 
+    border: 1px solid #d7d8da; 
+    padding-top: 20px;
+    left: -1px; 
+    width: 100%;
+    min-height: 800px;
+    display: none; 
 }
 
 .tab :checked + .tab-title {
-    position: relative; /* Относительное позиционирование */
-    background: rgb(228, 229, 232); /* Цвет фона */
+    position: relative; 
+    border: 1px solid #d7d8da;
+    background: #ffffff;
     color: #63648c;
-    top: 2px; 
     z-index: 1;
 }
    
 .tab :checked ~ .tab-content {
-    display: block; /* Показываем активную вкладку */
+    display: block; 
 }
 
 .chart-content {
     margin: 0;
     padding: 0px;
+}
+
+.first-title {
+    position: relative;
+    text-align: center;
+    margin-right: 20px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.second-title {
+    text-align: center;
+    margin-left: 7px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.saved {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #8081a2;
+    bottom: 11px;
+    right: 13px;
+    width: 7px;
+    height: 7px;
 }

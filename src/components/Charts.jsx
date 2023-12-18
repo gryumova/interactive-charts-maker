@@ -1,10 +1,8 @@
-import React from "react"
-import "./Charts.css"
-import BasicLayout from "./BasicLayout";
-import Example from "./Example";
+import React from "react";
+import "./Charts.css";
 import ChartsLayout from "./ExampleChart";
 
-const Charts = ({layout}) => {
+const Charts = ({handle, layout}) => {
 
     return (
         <div id="wrapper">

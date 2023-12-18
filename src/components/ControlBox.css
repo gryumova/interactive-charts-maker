@@ -1,19 +1,20 @@
 .controlBox {
     position: absolute;
     display: inline-block; 
-    top: -47px;
-    left: 50%;
+    top: -40px;
+    left: 15%;
 }
 
 .showValue {
     padding: 5px 20px;
-    background-color: #0456f3;
-    color: #eeeded;
-    border: 2px solid #0456f3;
-    border-radius: 5%;
+    background-color: #ffffff;
+    color: #63648c;
+    border: 1px solid #d7d8da;
+    border-radius: 10px;
     text-align: center;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 400;
     font-family: "euclid_circular";
     cursor: pointer;
 
@@ -22,7 +23,7 @@
 }
 
 .showValue:hover {
-    background-color: #003db6; /* Green */
-    border: 2px solid #003db6;
-    color: #eeeded;
+    border: 1px solid #63648c;
+    color: #63648c;
 }
+
