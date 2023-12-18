@@ -73,8 +73,10 @@ const getPanelParams = (panels) => {
 
 const parsePanel = (xml) => {
     const xmlObject = parseStringSync(xml);
+    if (!xmlObject) throw new Error("Missing layout tag!");
+
     if (xmlObject.layout !== null) return getPanelParams(xmlObject.layout.panel)
-    else throw Error("Missing layout tag!")
+    else throw new Error("Missing layout tag!")
 }
 
 export {

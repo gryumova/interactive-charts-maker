@@ -2,7 +2,7 @@ import React from "react";
 import "./Charts.css";
 import ChartsLayout from "./ExampleChart";
 
-const Charts = ({handle, layout}) => {
+const Charts = ({layout}) => {
 
     return (
         <div id="wrapper">

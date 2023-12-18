@@ -2,7 +2,8 @@ export const clear = (id) => {
     if (document.getElementById(id)) document.getElementById(id).innerHTML = '';
 }                           
 
-export const clearAll = (layout) => {    
+export const clearAll = (layout) => {   
+    console.log(layout); 
     layout.forEach((item) => {
         document.getElementById(item.i).innerHTML = '';
     })
@@ -42,7 +43,7 @@ export const getLayout = (params) => {
 }
 
 export const getLayoutWithBorder = (params) => {
-    if (params.length === 0) return [];
+    if (!params || params.length === 0) return [];
 
     let count = getChartRowCount(params);
 

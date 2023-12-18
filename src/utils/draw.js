@@ -26,7 +26,8 @@ function drawChart(data, params) {
                                 color: 'white' } } }
 
     let place = "chart" + params.PlaceParams.x + params.PlaceParams.y
-    // clear(place);
+    clear(place);
+    
     const chart = createChart(document.getElementById(place), chartOptions);
 
     chart.timeScale().applyOptions({

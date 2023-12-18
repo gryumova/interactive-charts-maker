@@ -6,17 +6,16 @@ import Editor, { loader } from '@monaco-editor/react';
 import "./App.css"
 import Charts from "./components/Charts";
 import { parsePanel } from "./utils/parseXML";
-import { clearAll, getLayoutWithBorder } from "./utils/utils";
+import { getLayoutWithBorder } from "./utils/utils";
 import { makeRequest } from "./http/binanceApi";
 import { drawChart } from "./utils/draw";
-import ControlBox from "./components/ControlBox";
 
 const App = () => {
     const [content, setContent] = useState('<layout></layout>');
     const [options, setOptions] = useState([]);
     const [layout, setLayout] = useState([]);
-    const editorRef = useRef(null);
     const [save, setSave] = useState(true);
+    const editorRef = useRef(null);
 
     loader.init().then((monaco) => {
         monaco.editor.defineTheme('myTheme', {
@@ -29,52 +28,45 @@ const App = () => {
         });
     });
 
-    // const layout = useMemo(() => {
-    //     if (!options) return [];
-
-    //     return getLayoutWithBorder(options);
-    // }, [options])
+    const handleEditorDidMount = (editor, monaco) => {
+        editorRef.current = editor;
+    }
 
     useEffect(() => {
         document.addEventListener('keydown', function(event) {
             if (event.code ==='KeyS' && (event.ctrlKey || event.metaKey)) {
                 event.preventDefault();
-                setSave(true);
-                parseXMLLayouts();
+                handleSave();
+                console.log('cntrl')
             }
-          });
+        });
     }, [])
 
-    const handleEditorDidMount = (editor, monaco) => {
-        editorRef.current = editor;
-    }
-
-    const parseXMLLayouts = () => {
+    const handleSave = () => {
+        setSave(true);
+                                
         try {
-            const opt = parsePanel(editorRef.current.getValue());
+            const options_ = parsePanel(editorRef.current.getValue());
+            const layout_ = getLayoutWithBorder(options_);
 
-            if (!opt) {
+            if (!options_) {
                 setOptions([]);
+                toast.warning("Panel not found")
                 return 
             }
 
-            setOptions(opt);
-            toast.success("XML saved!")
-        } catch(err) {
+            setOptions([...options_]);
+            setLayout([...layout_]);
+            toast.success("Xml saved!");
+        } catch (err) {
             toast.error(err.message);
-            return null;
         }
     }
 
     const handleShow = () => {
-        clearAll(layout); 
-
         if (options.length === 0) {
-            toast.warning("No charts to draw!");
             return;
         }
-
-        setLayout(getLayoutWithBorder(options));
 
         options.forEach((option) => {
             makeRequest(option, drawChart);
@@ -116,10 +108,15 @@ const App = () => {
                 </div> 
                 <div className="tab">
                     <input type="radio" id="preview" name="tab-group"/>
-                    <label htmlFor="preview" className="tab-title second-title">Preview</label> 
+                    <label 
+                        htmlFor="preview" 
+                        className="tab-title second-title"
+                        onClick={handleShow}
+                    >
+                        Preview
+                    </label> 
                     <section className="tab-content chart-content">
-                        <ControlBox handle={handleShow} text="Show"></ControlBox>
-                        <Charts layout={layout} handle={handleShow}/>
+                        <Charts layout={layout}/>
                     </section>
                 </div>
             </div>
