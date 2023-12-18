@@ -4,12 +4,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import Editor, { loader } from '@monaco-editor/react';
 
 import "./App.css"
-import Charts from './components/Charts';
-import { parsePanel } from './utils/parseXML.js';
-import { clearAll, getLayoutWithBorder } from './utils/utils.js';
-import { makeRequest } from './http/binanceApi.js';
-import { drawChart } from './utils/draw.js';
-import ControlBox from './components/ControlBox';
+import Charts from "./components/Charts";
+import { parsePanel } from "./utils/parseXML";
+import { clearAll, getLayoutWithBorder } from "./utils/utils";
+import { makeRequest } from "./http/binanceApi";
+import { drawChart } from "./utils/draw";
+import ControlBox from "./components/ControlBox";
 
 const App = () => {
     const [content, setContent] = useState('<layout></layout>');
