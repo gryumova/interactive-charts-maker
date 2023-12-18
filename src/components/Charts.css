@@ -1,20 +1,10 @@
 #wrapper {
     width: 100%;
-    background-color: #ffffff;
-    margin: 0;
-}
-
-.chart {
-    padding: 2px;
-    margin: 3px;
+    min-height: 94vh;
+    background-color: #dfe3eb;
 }
 
 .layout {
-    background-color: #ffffff;
+    background-color: #dfe3eb;
 }
 
-.className {
-    margin: 0;
-    padding: 0;
-    display: block;
-}

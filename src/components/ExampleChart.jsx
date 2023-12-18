@@ -15,6 +15,7 @@ export default class ChartsLayout extends Component {
           cols={{ lg: 12 }}
           rowHeight={250}
           width={1200}
+          margin={[5, 5]}
         >
             {
                 this.props.layout.map((item) => {

@@ -3,15 +3,17 @@ import { useEffect, useRef, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import Editor, { loader } from '@monaco-editor/react';
 
-import "./App.css"
+import "./App.css";
+import "./toastify.css";
 import Charts from "./components/Charts";
 import { parsePanel } from "./utils/parseXML";
 import { getLayoutWithBorder } from "./utils/utils";
 import { makeRequest } from "./http/binanceApi";
 import { drawChart } from "./utils/draw";
+import { xml } from "./utils/config";
 
 const App = () => {
-    const [content, setContent] = useState('<layout></layout>');
+    const [content, setContent] = useState(xml);
     const [options, setOptions] = useState([]);
     const [layout, setLayout] = useState([]);
     const [save, setSave] = useState(true);
@@ -79,7 +81,7 @@ const App = () => {
                 <div className="tab">
                     <input type="radio" id="edit" name="tab-group" defaultChecked/>
                     <label htmlFor="edit" className="tab-title first-title">
-                        Edit
+                        Editor
                         <div 
                             style={{
                                 display: save ?"none": "block",
@@ -88,7 +90,7 @@ const App = () => {
                             >
                         </div>
                     </label> 
-                    <section className="tab-content">
+                    <section className="tab-content editor">
                         <Editor
                             theme='myTheme'
                             width='100%'
