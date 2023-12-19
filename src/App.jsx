@@ -7,7 +7,7 @@ import "./App.css";
 import "./toastify.css";
 import Charts from "./components/Charts";
 import { parsePanel } from "./utils/parseXML";
-import { getLayoutWithBorder } from "./utils/utils";
+import { getLayoutWithBorder, getLayout } from "./utils/utils";
 import { makeRequest } from "./http/binanceApi";
 import { drawChart } from "./utils/draw";
 import { xml } from "./utils/config";
@@ -49,7 +49,7 @@ const App = () => {
                                 
         try {
             const options_ = parsePanel(editorRef.current.getValue());
-            const layout_ = getLayoutWithBorder(options_);
+            const layout_ = getLayout(options_);
 
             if (!options_) {
                 setOptions([]);
@@ -125,7 +125,7 @@ const App = () => {
 
             <ToastContainer 
                 position="top-right"
-                autoClose={3000}
+                autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick

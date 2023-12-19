@@ -18,6 +18,13 @@ function getLineParameters(params) {
     }
 }
 
+function addNameplace(place, block) {
+    let namePlace = document.createElement('div');
+    namePlace.className = "name_place";
+    namePlace.innerHTML = "x = " + place.x + "<br> y = " + place.y;
+    block.appendChild(namePlace);
+}
+
 function drawChart(data, params) {
     const chartOptions = {  layout: { 
                             textColor: 'black', 
@@ -27,8 +34,10 @@ function drawChart(data, params) {
 
     let place = "chart" + params.PlaceParams.x + params.PlaceParams.y
     clear(place);
+
+    let block = document.getElementById(place);
     
-    const chart = createChart(document.getElementById(place), chartOptions);
+    const chart = createChart(block, chartOptions);
 
     chart.timeScale().applyOptions({
         barSpacing: params.BarParams.barSpacing,
@@ -43,6 +52,7 @@ function drawChart(data, params) {
     candlestickSeries.setData(data);
 
     chart.timeScale().fitContent();
+    addNameplace(params.PlaceParams, block);
 }
 
 export { drawChart };

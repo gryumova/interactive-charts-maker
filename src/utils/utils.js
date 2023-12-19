@@ -21,23 +21,21 @@ export const getChartRowCount = (params) => {
 }
 
 export const getLayout = (params) => {
-    if (params.length === 0) return [];
-
-    let max_y = params.reduce((acc, curr) => acc.PlaceParams.y > curr.PlaceParams.y ? acc : curr);
-    max_y = max_y.PlaceParams.y;
+    if (!params || params.length === 0) return [];
 
     let count = getChartRowCount(params);
 
     return params.map((panel) => {
         let x = panel.PlaceParams.x;
         let y = panel.PlaceParams.y;
+        let k = Object.keys(count).length;
 
         return {
             i: "chart" + x + y,
-            x: x - 1,
-            y: y - 1,
-            w: max_y / count[x],
-            h: 1,
+            x: (y - 1) * (12 / count[x]),
+            y: (x - 1) * (12 / k),
+            w: 12 / count[x],
+            h: 12 / k,
         }
     })
 }

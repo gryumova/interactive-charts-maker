@@ -1,10 +1,22 @@
 #wrapper {
     width: 100%;
     min-height: 94vh;
-    background-color: #dfe3eb;
+    background-color: #e0e3eb;
 }
 
 .layout {
-    background-color: #dfe3eb;
+    background-color: #e0e3eb;
+    position: relative;
 }
 
+.name_place {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 5px 15px 5px 15px;
+    background-color: #fff;
+    font-family: Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 50;
+}

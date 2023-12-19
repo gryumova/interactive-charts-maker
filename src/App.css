@@ -14,19 +14,19 @@
 .tab-title {
     background: #ffffff; 
     cursor: pointer;
-    padding: 8px 0px 15px 0px;
+    padding: 5px 0px 12px 0px;
     width: 100%;
-    color: #9b9ca5;
-    font-family: Georgia, 'Times New Roman', Times, serif, serif;
+    color: #c4c3c3;
+    font-family: Helvetica, sans-serif;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 
 .tab-content {
     background-color: #ffffff;
     position: absolute; 
-    border-top: 1px solid #dfe3eb; 
+    border-top: 1.5px solid #e0e3eb; 
     left: -1px; 
     width: 100%;
     min-height: 800px;
@@ -36,7 +36,6 @@
 .tab :checked + .tab-title {
     position: relative; 
     background: #ffffff;
-    /* color: #343552; */
     color: black;
     z-index: 1;
 }

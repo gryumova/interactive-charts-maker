@@ -13,7 +13,7 @@ export default class ChartsLayout extends Component {
           layouts={layout}
           breakpoints={{ lg: 1200 }}
           cols={{ lg: 12 }}
-          rowHeight={250}
+          rowHeight={63}
           width={1200}
           margin={[5, 5]}
         >

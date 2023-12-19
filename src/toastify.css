@@ -16,7 +16,7 @@
     --toastify-toast-background: #fff;
     --toastify-toast-min-height: 50px;
     --toastify-toast-max-height: 200px;
-    --toastify-font-family: Georgia, 'Times New Roman', Times, serif, serif;
+    --toastify-font-family: Helvetica, sans-serif;
     --toastify-z-index: 9999;
   
     --toastify-text-color-light: #757575;
