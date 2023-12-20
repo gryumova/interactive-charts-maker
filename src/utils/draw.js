@@ -52,6 +52,14 @@ function drawChart(data, params) {
     candlestickSeries.setData(data);
 
     chart.timeScale().fitContent();
+
+    window.addEventListener("resize", () => {
+        chart.applyOptions({
+            width: block.clientWidth,
+            height: block.clientHeight
+        });
+    });
+
     addNameplace(params.PlaceParams, block);
 }
 

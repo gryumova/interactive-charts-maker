@@ -7,15 +7,13 @@ import "./App.css";
 import "./toastify.css";
 import Charts from "./components/Charts";
 import { parsePanel } from "./utils/parseXML";
-import { getLayoutWithBorder, getLayout } from "./utils/utils";
 import { makeRequest } from "./http/binanceApi";
 import { drawChart } from "./utils/draw";
 import { xml } from "./utils/config";
 
 const App = () => {
     const [content, setContent] = useState(xml);
-    const [options, setOptions] = useState([]);
-    const [layout, setLayout] = useState([]);
+    const [options, setOptions] = useState(parsePanel(xml));
     const [save, setSave] = useState(true);
     const editorRef = useRef(null);
 
@@ -39,7 +37,6 @@ const App = () => {
             if (event.code ==='KeyS' && (event.ctrlKey || event.metaKey)) {
                 event.preventDefault();
                 handleSave();
-                console.log('cntrl')
             }
         });
     }, [])
@@ -49,7 +46,6 @@ const App = () => {
                                 
         try {
             const options_ = parsePanel(editorRef.current.getValue());
-            const layout_ = getLayout(options_);
 
             if (!options_) {
                 setOptions([]);
@@ -58,22 +54,22 @@ const App = () => {
             }
 
             setOptions([...options_]);
-            setLayout([...layout_]);
             toast.success("Xml saved!");
         } catch (err) {
             toast.error(err.message);
         }
     }
 
-    const handleShow = () => {
-        if (options.length === 0) {
-            return;
-        }
 
-        options.forEach((option) => {
-            makeRequest(option, drawChart);
-        })
+  const handleShow = () => {
+    if (options.length === 0) {
+      return 
     }
+
+    options.map((option) => {
+      makeRequest(option, drawChart);
+    })
+  };
     
     return (
         <>
@@ -118,7 +114,7 @@ const App = () => {
                         Preview
                     </label> 
                     <section className="tab-content chart-content">
-                        <Charts layout={layout}/>
+                        <Charts options={options}/>
                     </section>
                 </div>
             </div>

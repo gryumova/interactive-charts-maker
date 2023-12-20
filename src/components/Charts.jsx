@@ -2,11 +2,11 @@ import React from "react";
 import "./Charts.css";
 import ChartsLayout from "./ExampleChart";
 
-const Charts = ({layout}) => {
+const Charts = ({options}) => {
 
     return (
         <div id="wrapper">
-            <ChartsLayout layout={layout}/>
+            <ChartsLayout options={options}/>
         </div>
     )
 }

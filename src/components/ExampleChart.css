@@ -1,0 +1,15 @@
+.grid-layout {
+    display: grid;
+    width: calc(100% - 5px);
+    height: calc(95vh - 5px);
+}
+
+.chart {
+    position: relative;
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+}

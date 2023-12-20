@@ -24,12 +24,12 @@
 
 
 .tab-content {
-    background-color: #ffffff;
+    background-color: #e0e3eb;
     position: absolute; 
     border-top: 1.5px solid #e0e3eb; 
     left: -1px; 
     width: 100%;
-    min-height: 800px;
+    min-height: 94.5vh;
     display: none; 
 }
 

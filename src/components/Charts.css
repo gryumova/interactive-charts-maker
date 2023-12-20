@@ -1,12 +1,7 @@
 #wrapper {
     width: 100%;
-    min-height: 94vh;
+    min-height: 100%;
     background-color: #e0e3eb;
-}
-
-.layout {
-    background-color: #e0e3eb;
-    position: relative;
 }
 
 .name_place {
@@ -19,4 +14,10 @@
     font-size: 12px;
     font-weight: 600;
     z-index: 50;
+}
+
+@media (max-width: 750px) {
+    .name_place {
+        display: none;
+    }
 }
