@@ -1,5 +1,8 @@
 import { createChart } from 'lightweight-charts';
 import { clear } from './utils';
+import { getBusinessDayBeforeCurrentAt, filterData } from './utilsUpdateData';
+import { getUrl, makeHistoryRequest, url_ } from '../http/binanceApi';
+import { getDataForDraw } from './parseJSON';
 
 const defaultColorOptionCandle = { 
                                 upColor: '#26a69a', 
@@ -25,16 +28,16 @@ function addNameplace(place, block) {
     block.appendChild(namePlace);
 }
 
-function drawChart(data, params) {
+
+function getChart(data, params) {
     const chartOptions = {  layout: { 
-                            textColor: 'black', 
-                            background: { 
-                                type: 'solid', 
-                                color: 'white' } } }
+        textColor: 'black', 
+        background: { 
+            type: 'solid', 
+            color: 'white' } } }
 
     let place = "chart" + params.PlaceParams.x + params.PlaceParams.y
     clear(place);
-
     let block = document.getElementById(place);
     
     const chart = createChart(block, chartOptions);
@@ -61,6 +64,59 @@ function drawChart(data, params) {
     });
 
     addNameplace(params.PlaceParams, block);
+
+    return [chart, candlestickSeries]
+}
+
+function updateChart(chart, candlestickSeries, params, data) {
+    var timeScale = chart.timeScale();
+    var XMLHttpRequest = require('xhr2');
+    const xml_ = new XMLHttpRequest();
+
+    var timer = null;
+    timeScale.subscribeVisibleLogicalRangeChange(() => {
+        if (timer !== null) {
+            return;
+        }
+        timer = setTimeout(() => {
+            var logicalRange = timeScale.getVisibleLogicalRange();
+            if (logicalRange !== null) {
+                var barsInfo = candlestickSeries.barsInLogicalRange(logicalRange);
+                if (barsInfo !== null && barsInfo.barsBefore < 250) {
+                    var firstTime = getBusinessDayBeforeCurrentAt(data[0].time, 1);
+                    var lastTime = getBusinessDayBeforeCurrentAt(data[0].time, Math.max(500, -barsInfo.barsBefore + 500));
+                    
+                    let newParam = {
+                        ...params.BinanceParams,
+                        startTime: lastTime,
+                        endTime: firstTime
+                    }
+                    xml_.open("GET", getUrl(url_, newParam))
+
+                    xml_.send()
+
+                    xml_.onload = function() {
+                        let new_data = JSON.parse(xml_.response);
+                        new_data = new_data.map((value) => getDataForDraw(value, params.TypeParams.type));
+                        data = [...filterData(new_data), ...data];
+                        
+                        candlestickSeries.setData(data);
+                    };
+                    
+                    xml_.onerror = function() { 
+                        alert(`Ошибка соединения`);
+                    };
+                }
+            }
+            timer = null;
+        }, 50);
+    });
+}
+
+
+function drawChart(data, params) {
+    let [chart, candlestickSeries] = getChart(data, params);
+    updateChart(chart, candlestickSeries, params, data);
 }
 
 export { drawChart };

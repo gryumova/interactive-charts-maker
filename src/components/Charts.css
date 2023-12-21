@@ -1,6 +1,6 @@
 #wrapper {
-    width: 100%;
-    min-height: 100%;
+    width: calc(100% - 5px);
+    height: calc(94.5vh - 5px);
     background-color: #e0e3eb;
 }
 
@@ -8,9 +8,11 @@
     position: absolute;
     top: 5px;
     left: 5px;
-    padding: 5px 15px 5px 15px;
+    padding: 5px 10px 5px 10px;
     background-color: #fff;
-    font-family: Helvetica, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans",
+                Ubuntu, Cantarell, "Helvetica Neue",  sans-serif, "Apple Color Emoji",
+                "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 12px;
     font-weight: 600;
     z-index: 50;
