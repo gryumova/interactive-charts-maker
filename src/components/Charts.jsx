@@ -1,6 +1,6 @@
 import React from "react";
 import "./Charts.css";
-import ChartsLayout from "./ExampleChart";
+import ChartsLayout from "./ChartsLayout";
 
 const Charts = ({options}) => {
 

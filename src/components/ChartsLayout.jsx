@@ -1,6 +1,6 @@
 import React from "react";
 import { NOK, getChartRowCount } from "../utils/utils";
-import './ExampleChart.css';
+import './ChartsLayout.css';
 
 function ChartsLayout({options}) {
   if (options.length === 0) return <div></div>
