@@ -1,0 +1,29 @@
+.order_table_left div:hover {
+    background-color: var(--tr-hover);
+    border: none;
+    border-top: 1px dashed #484e58;
+}
+
+.order_table_right div:hover {
+    background-color: var(--tr-hover);
+    border: none;
+    border-bottom: 1px dashed #484e58;
+}
+
+.hovered {
+    background-color: var(--tr-hover);
+    border: none;
+}
+
+.order_table_left {
+    overflow-y: scroll;
+    overflow-x:hidden;
+    width: 100%;
+}
+
+
+.order_table_right {
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

@@ -2,5 +2,71 @@ body {
     margin: 0;
     padding: 0;
     background-color: #ffffff;
-    /* background-color: #f7f8fa; */
+}
+
+#root {
+    position: relative;
+}
+
+:root {
+    /* Light mode */
+    --light-text: rgb(52, 52, 52);
+    --light-text-checked: #c4c3c3;
+    --light-bg: #fff;
+    --light-theme: #e0e3eb;
+    --light-tr-hover: rgba(232, 229, 230, 0.3);
+  
+    /* Dark mode */
+    --dark-text: #dbe2e8;
+    --dark-text-checked: #999999;
+    --dark-bg: #161b22;
+    --dark-theme: #31373d;
+    --dark-tr-hover: rgba(182, 181, 181, 0.1);
+
+    /* Default mode */
+    --text-color: var(--light-text);
+    --text-checked: var( --light-text-checked);
+    --bg-color: var(--light-bg);
+    --theme-color: var(--light-theme);
+    --tr-hover: var(--light-tr-hover);
+
+    /* Light table mode */
+    --light-depth-bids: #fff4f6;
+    --light-deph-asks: #ecfff6;
+
+    /* Dark table mode */
+    --dark-depth-bids: #2e1e25;
+    --dark-depth-asks: #1a2b29;
+
+    /* Default table mode */
+    --depth-bids: var(--light-depth-bids);
+    --depth-asks: var(--light-deph-asks);
+}
+
+
+#themeSwitch:checked ~ #page {
+    --text-color: var(--dark-text);
+    --text-checked: var( --dark-text-checked);
+    --bg-color: var(--dark-bg);
+    --theme-color: var(--dark-theme);
+    --tr-hover: var(--dark-tr-hover);
+
+    --depth-bids: var(--dark-depth-bids);
+    --depth-asks: var(--dark-depth-asks);
+}
+
+#themeSwitch {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+}
+
+.switchLabelImg {
+    position: absolute;
+    top: 11px;
+    right: 30px;
+
+    width: 22px;
 }

@@ -1,0 +1,9 @@
+.avg {
+    color: var(--text-color);
+    font-family: "Comfortaa", sans-serif;
+    font-size: 15px; 
+    font-weight: 700;
+    text-align: start;
+    padding: 7px;
+    padding-left: 20px;
+}

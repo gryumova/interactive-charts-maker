@@ -5,25 +5,34 @@ import Editor, { loader } from '@monaco-editor/react';
 
 import "./App.css";
 import "./toastify.css";
-import Charts from "./components/Charts";
+import ChartsLayout from "./components/ChartsLayout";
 import { parsePanel } from "./utils/parseXML";
-import { makeRequest } from "./http/binanceApi";
-import { drawChart } from "./utils/draw";
 import { xml } from "./utils/config";
+import { drawChart } from './utils/draw';
+import { useTheme } from './hooks/useTheme';
 
 const App = () => {
     const [content, setContent] = useState(xml);
     const [options, setOptions] = useState(parsePanel(xml));
     const [save, setSave] = useState(true);
+    const {theme, setTheme} = useTheme();
     const editorRef = useRef(null);
 
     loader.init().then((monaco) => {
-        monaco.editor.defineTheme('myTheme', {
+        monaco.editor.defineTheme('myLightTheme', {
             base: 'vs',
             inherit: true,
             rules: [],
             colors: {
                 'editor.background': '#ffffff',
+            },
+        });
+        monaco.editor.defineTheme('myDarkTheme', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: [],
+            colors: {
+                'editor.background': '#161b22',
             },
         });
     });
@@ -40,6 +49,7 @@ const App = () => {
             }
         });
     }, [])
+
 
     const handleSave = () => {
         setSave(true);
@@ -60,23 +70,55 @@ const App = () => {
         }
     }
 
-
-  const handleShow = () => {
-    if (options.length === 0) {
-      return 
+    const handleShow = () => {
+        if (options.length === 0) return 
+        setTimeout(() => {
+            options.map((option) => {
+                if (Object.keys(option).includes("Charts")) {
+                    drawChart(option, theme);
+                }
+            })
+        }, 300);
     }
 
-    options.map((option) => {
-      makeRequest(option, drawChart);
-    })
-  };
-    
+    const handleChange = (e) => {
+        if(e.currentTarget.checked === true) {
+            setTheme('dark');
+            options.map((option) => {
+                if (Object.keys(option).includes("Charts")) {
+                    drawChart(option, 'dark');
+                }
+            })
+        } else {
+            setTheme('light');
+            options.map((option) => {
+                if (Object.keys(option).includes("Charts")) {
+                    drawChart(option, 'light');
+                }
+            })
+        }
+    }
+
     return (
         <>
-            <div className="tabs">
+            <input 
+                type="checkbox" 
+                id="themeSwitch" 
+                onChange={(e) => handleChange(e)}
+                checked={theme==="dark"? "true": false}
+            />
+            <div className="tabs" id="page">
                 <div className="tab">
-                    <input type="radio" id="edit" name="tab-group" defaultChecked/>
-                    <label htmlFor="edit" className="tab-title first-title">
+                    <input 
+                        type="radio" 
+                        id="edit" 
+                        name="tab-group" 
+                        defaultChecked
+                    />
+                    <label 
+                        htmlFor="edit" 
+                        className="tab-title first-title"
+                    >
                         Editor
                         <div 
                             style={{
@@ -88,7 +130,7 @@ const App = () => {
                     </label> 
                     <section className="tab-content editor">
                         <Editor
-                            theme='myTheme'
+                            theme={theme==='light'? 'myLightTheme': 'myDarkTheme'}
                             width='100%'
                             height='95vh'
                             defaultLanguage='xml'
@@ -105,20 +147,33 @@ const App = () => {
                     </section>
                 </div> 
                 <div className="tab">
-                    <input type="radio" id="preview" name="tab-group"/>
+                    <input 
+                        type="radio" 
+                        id="preview"
+                        name="tab-group"
+                    />
                     <label 
                         htmlFor="preview" 
                         className="tab-title second-title"
-                        onClick={handleShow}
+                        id='second-title'
+                        onClick={() => {handleShow();}}
                     >
                         Preview
                     </label> 
                     <section className="tab-content chart-content">
-                        <Charts options={options}/>
+                        <ChartsLayout options={options} show/>
                     </section>
                 </div>
+                <label htmlFor="themeSwitch" className='switchLabel'>
+                        <img className='switchLabelImg' src={
+                            theme === "light"
+                            ?
+                            require("./static/moon.png")
+                            :
+                            require("./static/sun2.png")
+                        }/>
+                </label>
             </div>
-
             <ToastContainer 
                 position="top-right"
                 autoClose={2000}

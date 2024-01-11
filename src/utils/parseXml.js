@@ -8,10 +8,10 @@ const parseStringSync = (str) => {
     }
 }
 
-const getBinanceParams = (panel) => {
+const getBinanceParams = (chart) => {
     return {
-        symbol: panel.chart[0].symbol[0],
-        interval: '1d',
+        symbol: chart.symbol[0],
+        interval: '1m',
         limit: 1500
     }
 }
@@ -30,23 +30,80 @@ const getBarParams = (panel) => {
     }
 }
 
-const getTypeParams = (panel) => {
+const getTypeParams = (chart) => {
     return {
-        type: panel.chart[0].type[0],
+        type: chart.type[0],
     }
 }
 
-const getChartParams = (panel) => {
-    let settings = panel.chart[0].settings[0]
+const getSettingsLine = (chart) => {
+    let settings = chart.settings[0];
 
-    return {
-        color: panel.chart[0].color[0],
+    let parse = require('parse-color');
+    if (!parse(chart.color[0]).rgb) {
+        throw new Error("Check line color!")
+    }
+    else return {
+        color: chart.color[0],
         lineStyle: settings.lineStyle? Number(settings.lineStyle[0]): 0,
         visible: settings.visible? settings.visible[0]: true,
         lineWidth: settings.lineWidth? Number(settings.lineWidth[0]): 3,
         priceScaleId: settings.priceScaleId? settings.priceScaleId[0]: 'left',
         precision: settings.precision? Number(settings.precision[0]): 4
     }
+}
+
+const getSettingsCandlestick = (chart) => {
+    let settings = chart.settings[0];
+
+    let parse = require('parse-color');
+    if (!parse(chart.color[0]).rgb || 
+        !parse(settings.upColor[0]).rgb ||
+        !parse(settings.downColor[0]).rgb ||
+        !parse(settings.borderUpColor[0]).rgb ||
+        !parse(settings.borderDownColor[0]).rgb ||
+        !parse(settings.wickUpColor[0]).rgb ||
+        !parse(settings.wickDownColor[0]).rgb) {
+        throw new Error("Check color settings on candle chart!")
+    }
+    return {
+        priceScaleId: settings.priceScaleId? settings.priceScaleId[0]: 'left',
+        visible: settings.visible? settings.visible[0]: true,
+        color: chart.color[0],
+        upColor: settings.upColor? settings.upColor[0]: '#26a69a',
+        downColor: settings.downColor? settings.downColor[0]: '#ef5350',
+        borderVisible: settings.borderVisible? settings.borderVisible[0]: true,
+        borderUpColor: settings.borderUpColor? settings.borderUpColor[0]: '#26a69a',
+        borderDownColor: settings.borderDownColor? settings.borderDownColor[0]: '#ef5350',
+        wickUpColor: settings.wickUpColor? settings.wickUpColor[0]: '#26a69a',
+        wickDownColor: settings.wickDownColor? settings.wickDownColor[0]: '#ef5350'
+    }
+}
+
+const getCharts = (charts) => {
+    return charts.map((chart) => { 
+        return {
+            TypeParams: getTypeParams(chart),
+            BinanceParams: getBinanceParams(chart),
+            ChartParams: chart.type[0] === "addLineSeries" ? 
+                        getSettingsLine(chart): 
+                        chart.type[0] === "addCandlestickSeries" ? 
+                        getSettingsCandlestick(chart):
+                        {}
+        }
+    })
+}
+
+const getOrderBook = (order) => {
+    return {
+        symbol: order.symbol? order.symbol[0]: "BTCUSDT",
+        interval: order.interval? order.interval[0]: 1000,
+        depth: order.maxdepth? order.maxdepth[0]: false
+    }
+}
+
+const IsChart = (panel) => {
+    return Object.keys(panel).includes("chart");
 }
 
 const getPanelParams = (panels) => {
@@ -56,12 +113,15 @@ const getPanelParams = (panels) => {
 
     try {
         const options = panels.map(panel => {
-            return {
+            if (IsChart(panel))
+                return {
+                    PlaceParams: getPlaceParams(panel),
+                    BarParams: getBarParams(panel),
+                    Charts: getCharts(panel.chart),
+                }
+            else return {
                 PlaceParams: getPlaceParams(panel),
-                BarParams: getBarParams(panel),
-                TypeParams: getTypeParams(panel),
-                BinanceParams: getBinanceParams(panel),
-                ChartParams: getChartParams(panel)
+                OrderBook: getOrderBook(panel.orderBook[0]),
             }
         })
 

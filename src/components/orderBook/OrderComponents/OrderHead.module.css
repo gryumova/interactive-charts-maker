@@ -1,0 +1,28 @@
+.order_table_head {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    padding: 0;
+    margin: 0;
+
+    width: 100%;
+}
+
+.order_table_head_item {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    padding: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    text-align: end;
+}
+
+@media (max-width: 300px) {
+    .order_table_head {
+        overflow-x: scroll;
+        width: 100%;
+    }
+}

@@ -1,6 +1,8 @@
 import { getDataForDraw } from "../utils/parseJSON";
 
 export const url_ = "https://api.binance.com/api/v3/klines"
+export const websocket_url = "wss://stream.binance.com:9443/ws/"
+// "<symbol>@kline_<interval>"
 
 export const getUrl = (url, params) => {
     let url_ = new URL(url);
@@ -8,6 +10,10 @@ export const getUrl = (url, params) => {
         url_.searchParams.set(i[0], i[1]);
 
     return url_.href
+}
+
+export const getWebsocketUrl = (symbol) => {
+    return `wss://stream.binance.com:9443/ws/${symbol}@kline_1s`
 }
 
 export const makeRequest = (params, callback) => {

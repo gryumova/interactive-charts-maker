@@ -20,20 +20,11 @@ const xml = '<layout> \n\
   <panel>\n\
     <x>1</x>\n\
     <y>2</y>\n\
-    <bar_spacing>5</bar_spacing>\n\
-    <min_bar_spacing>0.5</min_bar_spacing>\n\
-    <chart>\n\
+    <orderBook>\n\
       <symbol>BTCUSDT</symbol>\n\
-      <color>red</color>\n\
-      <type>addLineSeries</type>\n\
-      <settings>\n\
-        <priceScaleId>left</priceScaleId>\n\
-        <visible>true</visible>\n\
-        <lineStyle>0</lineStyle>\n\
-        <lineWidth>1</lineWidth>\n\
-        <precision>4</precision>\n\
-      </settings>\n\
-    </chart>\n\
+      <interval>1000ms</interval>\n\
+      <maxdepth>true</maxdepth>\n\
+    </orderBook>\n\
   </panel>\n\
   <panel>\n\
     <x>1</x>\n\
@@ -60,14 +51,18 @@ const xml = '<layout> \n\
     <min_bar_spacing>0.5</min_bar_spacing>\n\
     <chart>\n\
       <symbol>BTCUSDT</symbol>\n\
-      <color>black</color>\n\
-      <type>addLineSeries</type>\n\
+      <color>purple</color>\n\
+      <type>addCandlestickSeries</type>\n\
       <settings>\n\
         <priceScaleId>left</priceScaleId>\n\
         <visible>true</visible>\n\
-        <lineStyle>0</lineStyle>\n\
-        <lineWidth>1</lineWidth>\n\
-        <precision>4</precision>\n\
+        <upColor>#26a69a</upColor>\n\
+        <downColor>#ef5350</downColor>\n\
+        <borderVisible>true</borderVisible>\n\
+        <borderUpColor>#26a69a</borderUpColor>\n\
+        <borderDownColor>#ef5350</borderDownColor>\n\
+        <wickUpColor>#26a69a</wickUpColor>\n\
+        <wickDownColor>#ef5350</wickDownColor>\n\
       </settings>\n\
     </chart>\n\
   </panel>\n\

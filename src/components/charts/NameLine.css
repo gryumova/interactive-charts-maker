@@ -1,0 +1,57 @@
+.name_place {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 5px;
+    left: 5px;
+    padding: 5px 10px 5px 10px;
+    background-color: var(--bg-color);
+    /* color: var(--text-color); */
+    color: #5d6673;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans",
+                Ubuntu, Cantarell, "Helvetica Neue",  sans-serif, "Apple Color Emoji",
+                "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 200;
+    opacity: 1;
+}
+
+.name_place_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 3px;
+    cursor: pointer;
+    border: 1px solid var(--bg-color);
+}
+
+.name_place_wrapper p {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.name_place_color {
+    border: none;
+    border-top: 3px solid black;
+    width: 10px;
+    margin-right: 5px;
+    opacity: 1;
+}
+
+.name_place_wrapper:hover {
+    border: 1px solid var(--theme-color);
+}
+
+.name_place_wrapper_passive {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+}
+
+
+@media (max-width: 750px) {
+    .name_place {
+        display: none;
+    }
+}

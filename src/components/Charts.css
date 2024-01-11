@@ -1,25 +1,5 @@
 #wrapper {
     width: calc(100% - 5px);
-    height: calc(94.5vh - 5px);
-    background-color: #e0e3eb;
-}
-
-.name_place {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    padding: 5px 10px 5px 10px;
-    background-color: #fff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans",
-                Ubuntu, Cantarell, "Helvetica Neue",  sans-serif, "Apple Color Emoji",
-                "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 12px;
-    font-weight: 600;
-    z-index: 50;
-}
-
-@media (max-width: 750px) {
-    .name_place {
-        display: none;
-    }
+    height: calc(95vh);
+    background-color: var(--theme-color);
 }

@@ -1,0 +1,87 @@
+.orderbook_compare {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+
+    font-size: 11px;
+    font-weight: 900;
+    font-family: "Comfortaa", sans-serif;
+    color: var(--text-color);
+    cursor: default;
+
+    padding: 10px 20px 20px 20px;
+}
+
+.orderbook_compare_bids {
+    background-color: var(--depth-bids);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    position: relative;
+    padding: 1px;
+    padding-left: 7px;
+    margin: 0;
+
+    min-width: 15px;
+    text-align: start;
+}
+
+.orderbook_compare_bids::after {
+    content: ''; 
+
+    position: absolute;
+    right: -10px; 
+    top: 0px;
+    z-index: 10;
+
+    border: 9px solid transparent; 
+    border-left: 9px solid var(--depth-bids); 
+    border-top: 9px solid var(--depth-bids);
+}
+
+.orderbook_compare_asks {
+    background-color: var(--depth-asks);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    position: relative;
+    padding: 1px;
+    padding-right: 7px;
+    margin: 0;
+
+    min-width: 30px;
+    text-align: end;
+}
+
+.orderbook_compare_asks::before {
+    content: ''; 
+
+    position: absolute;
+    left: -8px; 
+    top: -1px;
+
+    border: 9px solid transparent; 
+    border-right: 9px solid var(--depth-asks); 
+    border-bottom: 9px solid var(--depth-asks);
+}
+
+
+.orderbook_compare_helper {
+    padding: 1px;
+    margin: 0;
+} 
+
+.bids_item {
+    padding-right: 5px;
+}
+
+.asks_item {
+    padding-left: 5px;
+}

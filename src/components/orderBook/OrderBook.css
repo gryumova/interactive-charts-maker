@@ -1,0 +1,59 @@
+.orderbook_title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+
+    margin-top: 0px;
+    margin-right: auto;
+    margin-left: 20px;
+
+    font-size: 15px;
+    font-weight: 600;
+    font-family: "Comfortaa", sans-serif;
+    color: #484e58;
+}
+
+.orderbook_title hr {
+    border: none;
+    border-top: 1.5px solid #484e58;
+    width: 3%;
+
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.orderbook_title p,hr {
+    padding: 0;
+    margin: 10px 0 5px 0;
+}
+
+.orderbook_title_name {
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.order {
+    width: 100%;
+}
+
+.table {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.row {
+    display: inline-block;
+}
+
+.display_none {
+    display: none;
+}
+
+.loading {
+    font-size: 15px;
+    font-family: "Comfortaa", sans-serif;
+    color: var(--theme-color);
+
+    align-items: center;
+}

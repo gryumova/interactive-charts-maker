@@ -1,6 +1,9 @@
 import React from "react";
 import { NOK, getChartRowCount } from "../utils/utils";
 import './ChartsLayout.css';
+import './Charts.css';
+import ChartComponent from "./charts/SimpleChart";
+import OrderBook from "./orderBook/OrderBook";
 
 function ChartsLayout({options}) {
   if (options.length === 0) return <div></div>
@@ -26,18 +29,19 @@ function ChartsLayout({options}) {
   function generateDom() {
     return options.map((item) => {
       let place = "chart"+item.PlaceParams.x + item.PlaceParams.y;
-      return <div
-                className="chart"
-                id={place}
-                key={place}
-                style={{
-                  gridRowStart: place,
-                  gridRowEnd: place,
-                  gridColumnStart: place,
-                  gridColumnEnd: place
-                }}
-            >
-            </div>
+      if (Object.keys(item).includes("Charts"))
+          return <ChartComponent
+                    key={place}
+                    place={place}
+                    params={item.Charts}
+                    barParams={item.BarParams}
+                  />
+      else return <OrderBook
+                    key={place}
+                    place={place}
+                    params={item.OrderBook}
+                    len={len}
+                  />
     })
   }
 
@@ -51,16 +55,20 @@ function ChartsLayout({options}) {
   }
 
   return (
-    <div 
-      className="grid-layout"
-      style={{
-        gridTemplateColumns: "repeat(" + nok + ", " + 100/nok + "%",
-        gridTemplateRows: "repeat(" + len + ", " + 100/len + "%",
-        gridTemplateAreas: `${getAreaString()}`,
-        gap: 0
-      }}
-    >
-      {generateDom()}
+    <div id="wrapper">
+      <div 
+        className="grid-layout"
+        style={{
+          gridTemplateColumns: "repeat(" + nok + ", " + 100/nok + "%",
+          gridTemplateRows: "repeat(" + len + ", " + 100/len + "%",
+          gridTemplateAreas: `${getAreaString()}`,
+          gap: 0
+        }}
+      >
+        {
+          generateDom()
+        }
+      </div>
     </div>
   )
 }

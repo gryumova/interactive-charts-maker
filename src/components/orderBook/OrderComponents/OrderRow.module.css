@@ -1,0 +1,56 @@
+.order_row_wrapper {
+    position: relative;
+    display: inline-block;
+    
+    width: 100%;
+    overflow-x: initial;
+    table-layout: fixed;
+
+    margin-top: -2px;
+    margin-bottom: -2px;
+    padding: 0;
+}
+
+.visualizer {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    height: 19px;
+}
+
+.order_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    padding: 0;
+    margin: 0;
+}
+
+.order_row_item {
+    padding: 3px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    font-family: "Comfortaa", sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+
+    color: var(--text-color);
+    text-align: end;
+
+    z-index: 100;
+    cursor: pointer;
+}
+
+.visualizer {
+    position: absolute;
+    right: 0px;
+    z-index: 0;
+
+    height: 19px;
+    border: none;
+
+    margin: 0;
+    padding: 0;
+}

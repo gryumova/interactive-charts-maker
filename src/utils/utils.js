@@ -1,13 +1,12 @@
 export const clear = (id) => {
-    if (document.getElementById(id)) document.getElementById(id).innerHTML = '';
+    if (document.getElementById(id)) {
+        // let node = document.getElementById(id);
+        // while (node.children.length > 1) {
+        //     node.removeChild(node.lastChild);
+        // }
+        document.getElementById(id).innerHTML = '';
+    }
 }                           
-
-export const clearAll = (layout) => {   
-    console.log(layout); 
-    layout.forEach((item) => {
-        document.getElementById(item.i).innerHTML = '';
-    })
-}
 
 export const getChartRowCount = (params) => {
     let count = {}
