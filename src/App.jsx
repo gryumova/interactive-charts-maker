@@ -164,15 +164,7 @@ const App = () => {
                         <ChartsLayout options={options} show/>
                     </section>
                 </div>
-                <label htmlFor="themeSwitch" className='switchLabel'>
-                        <img className='switchLabelImg' src={
-                            theme === "light"
-                            ?
-                            require("./static/moon.png")
-                            :
-                            require("./static/sun2.png")
-                        }/>
-                </label>
+                <label htmlFor="themeSwitch" className='switchLabel'></label>
             </div>
             <ToastContainer 
                 position="top-right"

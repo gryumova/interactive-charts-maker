@@ -10,6 +10,14 @@
     border-bottom: 1px dashed #484e58;
 }
 
+.order_table_right::-webkit-scrollbar {
+    display: none;
+}
+  
+.order_table_left::-webkit-scrollbar {
+    display: none;
+}
+
 .hovered {
     background-color: var(--tr-hover);
     border: none;

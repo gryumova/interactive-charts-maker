@@ -14,7 +14,7 @@
 }
 
 .orderbook_compare_bids {
-    background-color: var(--depth-bids);
+    background-color: var(--compare-bids);
 
     display: flex;
     flex-direction: row;
@@ -39,12 +39,12 @@
     z-index: 10;
 
     border: 9px solid transparent; 
-    border-left: 9px solid var(--depth-bids); 
-    border-top: 9px solid var(--depth-bids);
+    border-left: 9px solid var(--compare-bids); 
+    border-top: 9px solid var(--compare-bids);
 }
 
 .orderbook_compare_asks {
-    background-color: var(--depth-asks);
+    background-color: var(--compare-asks);
 
     display: flex;
     flex-direction: row;
@@ -68,8 +68,8 @@
     top: -1px;
 
     border: 9px solid transparent; 
-    border-right: 9px solid var(--depth-asks); 
-    border-bottom: 9px solid var(--depth-asks);
+    border-right: 9px solid var(--compare-asks); 
+    border-bottom: 9px solid var(--compare-asks);
 }
 
 

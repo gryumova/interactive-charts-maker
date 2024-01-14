@@ -7,7 +7,7 @@ const OrderRow = ({value, type, innerRef}) => {
 
     useEffect(() => {
         let width = innerRef && innerRef.current && innerRef.current.clientWidth;
-        setStyle({});
+        setStyle({paddingLeft: "20px", paddingRight: "20px",});
         if (width < 225) {
             console.log(width);
             setStyle({

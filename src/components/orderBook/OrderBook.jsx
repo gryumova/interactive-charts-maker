@@ -43,21 +43,6 @@ const OrderBook = ({place, params, len}) => {
             setVisibility(document.hidden);
         });
 
-        // const handleResize = () => {
-        //     let chart = document.getElementById(place);
-        //     if (chart && (chart.clientHeight < 300 || chart.clientWidth < 315)) {
-        //         document.getElementById("orderbook_compare").style.display = "none";
-        //     }
-
-        //     if (chart && (chart.clientHeight > 300 || chart.clientWidth > 315)) {
-        //         document.getElementById("orderbook_compare").style.display = "flex";
-        //     }
-
-        // };
-
-        // window.addEventListener('resize', handleResize);
-        // handleResize();
-
         $("#edit").change((e) => {
             setVisibility(true);
         })
