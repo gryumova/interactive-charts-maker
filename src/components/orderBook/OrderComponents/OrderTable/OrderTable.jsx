@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useRef } from 'react';
 import "./OrderTable.css";
-import OrderRow from './OrderRow';
+import OrderRow from '../OrderRow/OrderRow';
 
 const OrderTable = forwardRef(({array, type, column}, ref) => {
     

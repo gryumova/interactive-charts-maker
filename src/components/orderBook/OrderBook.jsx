@@ -7,11 +7,11 @@ import { fetchLoad, fetchError } from './actions/actions';
 import { addDepth } from '../../utils/utilsUpdateData';
 import './OrderBook.css';
 
-import OrderHead from './OrderComponents/OrderHead';
-import OrderTable from './OrderComponents/OrderTable';
-import Info from './OrderComponents/Info';
-import Avg from './OrderComponents/Avg';
-import OrderBookCompare from './OrderComponents/OrderBookCompare';
+import OrderHead from './OrderComponents/OrderHead/OrderHead';
+import OrderTable from './OrderComponents/OrderTable/OrderTable';
+import Info from './OrderComponents/Info/Info';
+import Avg from './OrderComponents/Avg/Avg';
+import OrderBookCompare from './OrderComponents/OrderBookCompare/OrderBookCompare';
 
 
 const OrderBook = ({place, params, len}) => {

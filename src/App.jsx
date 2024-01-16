@@ -48,7 +48,19 @@ const App = () => {
                 handleSave();
             }
         });
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        options.map((option) => {
+            if (Object.keys(option).includes("Charts")) {
+                try {
+                    drawChart(option, theme);
+                } catch (err) {
+                    toast.error(err.message);
+                }
+            }
+        });
+    }, [theme])
 
 
     const handleSave = () => {
@@ -72,31 +84,22 @@ const App = () => {
 
     const handleShow = () => {
         if (options.length === 0) return 
+
         setTimeout(() => {
             options.map((option) => {
                 if (Object.keys(option).includes("Charts")) {
-                    drawChart(option, theme);
+                    try {
+                        drawChart(option, theme);
+                    } catch (err) {
+                        toast.error(err.message);
+                    }
                 }
             })
         }, 300);
     }
 
     const handleChange = (e) => {
-        if(e.currentTarget.checked === true) {
-            setTheme('dark');
-            options.map((option) => {
-                if (Object.keys(option).includes("Charts")) {
-                    drawChart(option, 'dark');
-                }
-            })
-        } else {
-            setTheme('light');
-            options.map((option) => {
-                if (Object.keys(option).includes("Charts")) {
-                    drawChart(option, 'light');
-                }
-            })
-        }
+        e.currentTarget.checked === true ? setTheme('dark'): setTheme('light');
     }
 
     return (

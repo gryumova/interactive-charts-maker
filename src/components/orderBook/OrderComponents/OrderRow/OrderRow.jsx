@@ -9,7 +9,6 @@ const OrderRow = ({value, type, innerRef}) => {
         let width = innerRef && innerRef.current && innerRef.current.clientWidth;
         setStyle({paddingLeft: "20px", paddingRight: "20px",});
         if (width < 225) {
-            console.log(width);
             setStyle({
                 fontSize: "9px", 
                 paddingTop: "4px", 

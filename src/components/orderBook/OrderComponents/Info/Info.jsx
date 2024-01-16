@@ -50,7 +50,7 @@ const Info = ({ index, array, type, innerRef}) => {
             setSum2(s2);
 
             let count = innerRef && innerRef.current.clientHeight;
-            count = count/19;
+            count = count / 19;
 
             let countTop = innerRef.current && Math.floor(innerRef.current.scrollTop / 19)
 

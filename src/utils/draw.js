@@ -1,8 +1,9 @@
 import { getDataForDraw, getWebsocketData} from './parseJSON';
 import { filterData, getBusinessDayBeforeCurrentAt} from './utilsUpdateData';
-import { getUrl, url_, getWebsocketUrl } from '../http/binanceApi';
+import { getUrl, url_ } from '../http/binanceApi';
 import { clear } from './utils';
 import { createChart } from 'lightweight-charts';
+import { LINE, CANDLE, getChartOptions } from "./constants";
 
 export function getLineParameters(params) {
     return {
@@ -39,7 +40,6 @@ function addNameLine(series, symbol, color, divTo) {
     new_div.appendChild(p); 
 
     function handleClick() {
-        console.log(this);
         if (this.classList.contains('name_place_wrapper_passive')) {
             series.applyOptions({
                 visible: true,
@@ -57,32 +57,8 @@ function addNameLine(series, symbol, color, divTo) {
     divTo.appendChild(new_div);
 }
 
-const defaultColorOptionCandle = { 
-    upColor: '#26a69a', 
-    downColor: '#ef5350', 
-    borderVisible: false,
-    wickUpColor: '#26a69a', 
-    wickDownColor: '#ef5350'
-};
-
-const defaultColorOptionLine = { 
-    color: '#2962FF',
-};
-
 export const drawChart = (params, theme) => {
-    const chartOptions = { 
-        layout: { 
-            textColor: theme==='light'? '#5d6673': '#5d6673',
-            background: { 
-                type: 'solid', 
-                color: theme==='light'? 'white': '#161b22',
-            },
-        },
-        grid: {
-            vertLines: { color: theme==='light'? '#ececec': '#272a2e' },
-            horzLines: { color: theme==='light'? '#ececec': '#272a2e' },
-        },
-    };
+    const chartOptions = getChartOptions(theme);
 
     let place = "chart" + params.PlaceParams.x + params.PlaceParams.y
     clear(place);
@@ -125,10 +101,11 @@ export const drawChart = (params, theme) => {
     });
 
     const candlestickSeriesMap = params.Charts.map((element) => {
-        if (element.TypeParams.type === "addLineSeries") {
+        if (element.TypeParams.type === LINE) {
             return chart.addLineSeries(getLineParameters(element.ChartParams));
-        } else return chart.addCandlestickSeries(getCandlestickParameters(element.ChartParams));
-            
+        } else if (element.TypeParams.type === CANDLE)
+            return chart.addCandlestickSeries(getCandlestickParameters(element.ChartParams));
+        else throw new Error(`Invalid graph type. It is possible to build only ${LINE} and ${CANDLE}!`);
     });
 
     let divTo = document.createElement('div');
@@ -139,7 +116,8 @@ export const drawChart = (params, theme) => {
         addNameLine(series, 
                     params.Charts[indx].BinanceParams.symbol, 
                     params.Charts[indx].ChartParams.color, 
-                    divTo);
+                    divTo
+        );
     })
 
     block.appendChild(divTo);
@@ -199,7 +177,7 @@ function updateChart(chart, candlestickSeries, params, data) {
                     };
                     
                     xml_.onerror = function() { 
-                        alert(`Ошибка соединения`);
+                        throw new Error("Connection error!");
                     };
                 }
             }
@@ -244,6 +222,6 @@ function loadData(params, series, chart) {
     };
 
     xml_.onerror = function() { 
-        alert(`Ошибка соединения`);
+        throw new Error("Connection error!");
     };
 }

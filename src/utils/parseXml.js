@@ -17,6 +17,9 @@ const getBinanceParams = (chart) => {
 }
 
 const getPlaceParams = (panel) => {
+    if (isNaN(Number(panel.x[0])) || isNaN(Number(panel.y[0]))) {
+        throw new Error("Check x or y tag! It must be a number.");
+    }
     return {
         x: Number(panel.x[0]),
         y: Number(panel.y[0])
@@ -24,6 +27,14 @@ const getPlaceParams = (panel) => {
 }
 
 const getBarParams = (panel) => {
+    if (isNaN(Number(panel.bar_spacing[0]))) {
+        throw new Error("Chek bar spacing! It must be a number.");
+    }
+
+    if (isNaN(Number(panel.min_bar_spacing[0]))) {
+        throw new Error("Chek min bar spacing! It must be a number.");
+    }
+
     return {
         barSpacing: Number(panel.bar_spacing[0]),
         minBarSpacing: Number(panel.min_bar_spacing[0]),
@@ -41,8 +52,22 @@ const getSettingsLine = (chart) => {
 
     let parse = require('parse-color');
     if (!parse(chart.color[0]).rgb) {
-        throw new Error("Check line color!")
+        throw new Error("Check line color! It must be a number.")
     }
+
+    if (isNaN(Number(settings.lineStyle[0]))) {
+        console.log(Number(settings.lineStyle[0]))
+        throw new Error("Check line style! It must be a number.")
+    }
+
+    if (isNaN(Number(settings.lineWidth[0]))) {
+        throw new Error("Check line width! It must be a number.")
+    }
+
+    if (isNaN(Number(settings.precision[0]))) {
+        throw new Error("Check precision! It must be a number.")
+    }
+
     else return {
         color: chart.color[0],
         lineStyle: settings.lineStyle? Number(settings.lineStyle[0]): 0,
@@ -57,15 +82,34 @@ const getSettingsCandlestick = (chart) => {
     let settings = chart.settings[0];
 
     let parse = require('parse-color');
-    if (!parse(chart.color[0]).rgb || 
-        !parse(settings.upColor[0]).rgb ||
-        !parse(settings.downColor[0]).rgb ||
-        !parse(settings.borderUpColor[0]).rgb ||
-        !parse(settings.borderDownColor[0]).rgb ||
-        !parse(settings.wickUpColor[0]).rgb ||
-        !parse(settings.wickDownColor[0]).rgb) {
+    if (chart.color && !parse(chart.color[0]).rgb){
         throw new Error("Check color settings on candle chart!")
     }
+
+    if (settings.upColor && !parse(settings.upColor[0]).rgb) {
+        throw new Error("Check color settings on candle chart!")
+    }
+
+    if (settings.downColor && !parse(settings.downColor[0]).rgb) {
+        throw new Error("Check color settings on candle chart!")
+    }
+
+    if (settings.borderUpColor && !parse(settings.borderUpColor[0]).rgb) {
+        throw new Error("Check color settings on candle chart!")
+    }
+
+    if (settings.borderDownColor && !parse(settings.borderDownColor[0]).rgb) {
+        throw new Error("Check color settings on candle chart!")
+    }
+
+    if (settings.wickUpColor && !parse(settings.wickUpColor[0]).rgb) {
+        throw new Error("Check color settings on candle chart!")
+    }
+
+    if (settings.wickDownColor && !parse(settings.wickDownColor[0]).rgb) {
+        throw new Error("Check color settings on candle chart!")
+    }
+
     return {
         priceScaleId: settings.priceScaleId? settings.priceScaleId[0]: 'left',
         visible: settings.visible? settings.visible[0]: true,
@@ -106,6 +150,10 @@ const IsChart = (panel) => {
     return Object.keys(panel).includes("chart");
 }
 
+const IsOrderBook = (panel) => {
+    return Object.keys(panel).includes("orderBook");
+}
+
 const getPanelParams = (panels) => {
     if (!panels) {
         return null
@@ -119,9 +167,13 @@ const getPanelParams = (panels) => {
                     BarParams: getBarParams(panel),
                     Charts: getCharts(panel.chart),
                 }
-            else return {
+            else if (IsOrderBook(panel))
+                return {
                 PlaceParams: getPlaceParams(panel),
                 OrderBook: getOrderBook(panel.orderBook[0]),
+                }
+            else {
+                throw Error("Invalid tag. Only chart and orderbook are supported!")
             }
         })
 
@@ -133,7 +185,7 @@ const getPanelParams = (panels) => {
 
 const parsePanel = (xml) => {
     const xmlObject = parseStringSync(xml);
-    if (!xmlObject) throw new Error("Missing layout tag!");
+    if (!xmlObject) throw new Error("Incorrect tags!");
 
     if (xmlObject.layout !== null) return getPanelParams(xmlObject.layout.panel)
     else throw new Error("Missing layout tag!")

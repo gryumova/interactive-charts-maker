@@ -1,9 +1,5 @@
 export const clear = (id) => {
     if (document.getElementById(id)) {
-        // let node = document.getElementById(id);
-        // while (node.children.length > 1) {
-        //     node.removeChild(node.lastChild);
-        // }
         document.getElementById(id).innerHTML = '';
     }
 }                           
