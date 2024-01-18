@@ -1,91 +1,69 @@
-<!-- Example 1 -->
-
-<layout> 
+<layout>
   <panel>
-      <x>1</x>
-      <y>1</y>
-      <bar_spacing>5</bar_spacing>
-      <min_bar_spacing>0.5</min_bar_spacing>
-      <chart>
-        <symbol>BTCUSDT</symbol>
-        <color>blue</color>
-        <type>addLineSeries</type>
-        <settings>
-          <priceScaleId>left</priceScaleId>
-          <visible>true</visible>
-          <lineStyle>0</lineStyle>
-          <lineWidth>1</lineWidth>
-          <precision>4</precision>
-        </settings>
-      </chart>
-    </panel>
-    <panel>
-      <x>1</x>
-      <y>2</y>
-      <bar_spacing>5</bar_spacing>
-      <min_bar_spacing>0.5</min_bar_spacing>
-      <chart>
-        <symbol>ADAUSDT</symbol>
-        <color>red</color>
-        <type>addLineSeries</type>
-        <settings>
-          <priceScaleId>left</priceScaleId>
-          <visible>true</visible>
-          <lineStyle>0</lineStyle>
-          <lineWidth>1</lineWidth>
-          <precision>4</precision>
-        </settings>
-      </chart>
-    </panel>
-</layout>
-
-
-
-<!-- Example 2 -->
-
-<layout> 
+    <x>1</x>
+    <y>1</y>
+    <bar_spacing>5</bar_spacing>
+    <min_bar_spacing>0.5</min_bar_spacing>
+    <chart>
+      <symbol>BTCUSDT</symbol>
+      <color>blue</color>
+      <type>addLineSeries</type>
+      <settings>
+        <priceScaleId>left</priceScaleId>
+        <visible>true</visible>
+        <lineStyle>0</lineStyle>
+        <lineWidth>1</lineWidth>
+        <precision>4</precision>
+      </settings>
+    </chart>
+  </panel>
   <panel>
-      <x>1</x>
-      <y>1</y>
-      <chart>
-        <symbol>BTCUSDT</symbol>
-        <color>blue</color>
-        <type>addLineSeries</type>
-        <settings>
-          <priceScaleId>left</priceScaleId>
-          <visible>true</visible>
-          <lineStyle>0</lineStyle>
-          <lineWidth>1</lineWidth>
-          <precision>4</precision>
-        </settings>
-      </chart>
-    </panel>
-    <panel>
-      <x>1</x>
-      <y>2</y>
-      <chart>
-        <symbol>ADAUSDT</symbol>
-        <color>red</color>
-        <type>addLineSeries</type>
-        <settings>
-          <lineStyle>1</lineStyle>
-          <lineWidth>4</lineWidth>
-          <precision>4</precision>
-        </settings>
-      </chart>
-    </panel>
-    <panel>
-      <x>1</x>
-      <y>3</y>
-      <chart>
-        <symbol>ADAUSDT</symbol>
-        <color>green</color>
-        <type>addLineSeries</type>
-        <settings>
-          <lineStyle>2</lineStyle>
-          <lineWidth>3</lineWidth>
-          <precision>4</precision>
-        </settings>
-      </chart>
-    </panel>
-</layout>
+    <x>1</x>
+    <y>2</y>
+    <orderBook>
+      <symbol>BTCUSDT</symbol>
+      <interval>1000ms</interval>
+      <maxdepth>true</maxdepth>
+    </orderBook>
+  </panel>
+  <panel>
+    <x>1</x>
+    <y>3</y>
+    <bar_spacing>5</bar_spacing>
+    <min_bar_spacing>0.5</min_bar_spacing>
+    <chart>
+      <symbol>BTCUSDT</symbol>
+      <color>green</color>
+      <type>addLineSeries</type>
+      <settings>
+        <priceScaleId>left</priceScaleId>
+        <visible>true</visible>
+        <lineStyle>0</lineStyle>
+        <lineWidth>1</lineWidth>
+        <precision>4</precision>
+      </settings>
+    </chart>
+  </panel>
+  <panel>
+    <x>2</x>
+    <y>1</y>
+    <bar_spacing>5</bar_spacing>
+    <min_bar_spacing>0.5</min_bar_spacing>
+    <chart>
+      <symbol>BTCUSDT</symbol>
+      <color>purple</color>
+      <type>addCandlestickSeries</type>
+      <settings>
+        <priceScaleId>left</priceScaleId>
+        <visible>true</visible>
+        <upColor>#26a69a</upColor>
+        <downColor>#ef5350</downColor>
+        <borderVisible>true</borderVisible>
+        <borderUpColor>#26a69a</borderUpColor>
+        <borderDownColor>#ef5350</borderDownColor>
+        <wickUpColor>#26a69a</wickUpColor>
+        <wickDownColor>#ef5350</wickDownColor>
+      </settings>
+    </chart>
+  </panel>
+</layout>'
